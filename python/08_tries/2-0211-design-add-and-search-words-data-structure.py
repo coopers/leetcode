@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
         self.children = {}  # a : TrieNode
-        self.word = False
+        self.isWord = False
 
 
 class WordDictionary:
@@ -9,28 +9,23 @@ class WordDictionary:
         self.root = TrieNode()
 
     def addWord(self, word: str) -> None:
-        cur = self.root
+        n = self.root
         for c in word:
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur = cur.children[c]
-        cur.word = True
+            if c not in n.children:
+                n.children[c] = TrieNode()
+            n = n.children[c]
+        n.isWord = True
 
     def search(self, word: str) -> bool:
-        def dfs(j, root):
-            cur = root
-
-            for i in range(j, len(word)):
+        def dfs(index, n):
+            for i in range(index, len(word)):
                 c = word[i]
                 if c == ".":
-                    for child in cur.children.values():
-                        if dfs(i + 1, child):
-                            return True
-                    return False
+                    return any(dfs(i + 1, child) for child in n.children.values())
                 else:
-                    if c not in cur.children:
+                    if c not in n.children:
                         return False
-                    cur = cur.children[c]
-            return cur.word
+                    n = n.children[c]
+            return n.isWord
 
         return dfs(0, self.root)

@@ -1,23 +1,13 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        res, part = [], []
-
-        def dfs(i):
-            if i >= len(s):
-                res.append(part.copy())
-                return
-            for j in range(i, len(s)):
-                if self.isPali(s, i, j):
-                    part.append(s[i : j + 1])
-                    dfs(j + 1)
-                    part.pop()
-
-        dfs(0)
+        res = []
+        self.dfs(s, [], res)
         return res
 
-    def isPali(self, s, l, r):
-        while l < r:
-            if s[l] != s[r]:
-                return False
-            l, r = l + 1, r - 1
-        return True
+    def dfs(self, s: str, path: List[str], res: List[List[str]]):
+        if not s:
+            res.append(path)
+        else:
+            for i in range(1, len(s) + 1):
+                if s[:i] == s[:i][::-1]:
+                    self.dfs(s[i:], path + [s[:i]], res)

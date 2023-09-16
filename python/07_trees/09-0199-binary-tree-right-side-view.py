@@ -13,7 +13,7 @@ class Solution:
             rightSide = None
             qLen = len(q)
 
-            for i in range(qLen):
+            for _ in range(qLen):
                 node = q.popleft()
                 if node:
                     rightSide = node

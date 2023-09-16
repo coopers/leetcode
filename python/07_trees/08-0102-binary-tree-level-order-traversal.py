@@ -14,14 +14,14 @@ class Solution:
             q.append(root)
 
         while q:
-            val = []
+            values = []
 
-            for i in range(len(q)):
+            for _ in range(len(q)):
                 node = q.popleft()
-                val.append(node.val)
+                values.append(node.val)
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
-            res.append(val)
+            res.append(values)
         return res

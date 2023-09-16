@@ -10,6 +10,18 @@ class Solution1:
         return nums[len(nums) - k]
 
 
+# Solution: MaxHeap
+# Time Complexity:
+# O(k*log(n))
+# Extra Space Complexity: O(1)
+class Solution2:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heapq._heapify_max(nums)
+        for _ in range(k - 1):
+            heapq._heappop_max(nums)
+        return nums[0]
+    
+
 # Solution: QuickSelect
 # Time Complexity:
 #   - Best Case: O(n)
