@@ -6,9 +6,7 @@ class Solution:
                 res.append(chosen)
             else:
                 for i in range(len(remaining)):
-                    nextChosen = chosen + [remaining[i]]
-                    nextRemaining = remaining[:i] + remaining[i + 1:]
-                    helper(nextChosen, nextRemaining)
+                    helper(chosen + [remaining[i]], remaining[:i] + remaining[i + 1:])
 
         helper([], nums)
         return res
