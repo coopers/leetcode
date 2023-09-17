@@ -3,7 +3,7 @@ class Codec:
         return ''.join(map(lambda s: f"{len(s)}#{s}", strs))
 
     def decode(self, s):
-        res = []
+        strs = []
         i = 0
         
         while i < len(s):
@@ -13,7 +13,7 @@ class Codec:
             length = int(s[i:j])
             i = j + 1
             j = i + length
-            res.append(s[i:j])
+            strs.append(s[i:j])
             i = j
             
-        return res
+        return strs

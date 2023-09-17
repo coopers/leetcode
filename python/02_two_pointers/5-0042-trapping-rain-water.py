@@ -1,16 +1,15 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
 
-        c = height.index(max(height))
+        highest = height.index(max(height))
     
-        vol = 0
-        for arr in [height[:c], height[:c:-1]]:
-            first = 0
-            for i in arr:
-                if i < first:
-                    vol += first - i
+        volume = 0
+        for arr in [height[:highest], reversed(height[highest + 1:])]:
+            nextHighest = 0
+            for num in arr:
+                if num < nextHighest:
+                    volume += nextHighest - num
                 else:
-                    first = i
+                    nextHighest = num
     
-        return vol
-   
+        return volume
