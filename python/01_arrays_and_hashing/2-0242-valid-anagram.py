@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 # Counter
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
