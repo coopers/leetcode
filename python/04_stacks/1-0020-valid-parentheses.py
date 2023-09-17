@@ -1,14 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        Map = {")": "(", "]": "[", "}": "{"}
+        m = {
+                ')': '(',
+                '}': '{',
+                ']': '['
+        }
         stack = []
-
         for c in s:
-            if c not in Map:
+            if c in m:
+                if not stack or stack.pop() != m[c]:
+                    return False
+            else:
                 stack.append(c)
-                continue
-            if not stack or stack[-1] != Map[c]:
-                return False
-            stack.pop()
 
-        return not stack
+        return len(stack) == 0

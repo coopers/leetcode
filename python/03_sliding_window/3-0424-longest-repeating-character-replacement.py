@@ -1,13 +1,13 @@
 class Solution:
     def characterReplacement(self, s, k):
-        counts = {}
+        counter = {}
         maxf = 0
         l = 0
         for r, ch in enumerate(s):
-            counts[ch] = 1 + counts.get(ch, 0)
-            maxf = max(maxf, counts[ch])
+            counter[ch] = 1 + counter.get(ch, 0)
+            maxf = max(maxf, counter[ch])
             if maxf + k < r - l + 1:
-                counts[s[l]] -= 1
+                counter[s[l]] -= 1
                 l += 1
 
         return len(s) - l
