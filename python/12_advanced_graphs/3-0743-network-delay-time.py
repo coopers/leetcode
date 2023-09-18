@@ -1,6 +1,11 @@
+import heapq
+from collections import defaultdict
+from typing import List
+
+
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        edges = collections.defaultdict(list)
+        edges = defaultdict(list)
         for u, v, w in times:
             edges[u].append((v, w))
 

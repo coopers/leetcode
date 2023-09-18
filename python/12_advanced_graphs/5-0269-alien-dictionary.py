@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         adj = {char: set() for word in words for char in word}

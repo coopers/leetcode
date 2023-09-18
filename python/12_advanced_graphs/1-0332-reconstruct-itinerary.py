@@ -1,6 +1,10 @@
+from typing import List
+from collections import deque
+
+
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        adj = {u: collections.deque() for u, v in tickets}
+        adj = {u: deque() for u, v in tickets}
         res = ["JFK"]
 
         tickets.sort()
