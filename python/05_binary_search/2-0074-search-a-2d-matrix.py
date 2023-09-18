@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         ROWS, COLS = len(matrix), len(matrix[0])

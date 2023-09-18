@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 class Solution:
     def isValidSudoku(self, board):
         row = defaultdict(set)

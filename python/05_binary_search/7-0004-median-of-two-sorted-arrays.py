@@ -1,4 +1,4 @@
-# Time: log(min(n, m))
+from typing import List
 
 
 class Solution:
