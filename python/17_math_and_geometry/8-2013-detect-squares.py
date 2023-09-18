@@ -1,3 +1,7 @@
+from typing import List
+from collections import defaultdict
+
+
 class DetectSquares:
     def __init__(self):
         self.ptsCount = defaultdict(int)

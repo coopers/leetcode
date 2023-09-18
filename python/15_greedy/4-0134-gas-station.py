@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         total_gas = 0

@@ -1,3 +1,6 @@
+from typing import List
+
+
 def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         time = []
         for start, end in intervals:
