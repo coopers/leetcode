@@ -1,3 +1,8 @@
+import heapq
+from typing import List
+from collections import Counter, deque
+
+
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         count = Counter(tasks)
@@ -23,7 +28,7 @@ class Solution:
 # Greedy algorithm
 class Solution(object):
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        counter = collections.Counter(tasks)
+        counter = Counter(tasks)
         max_count = max(counter.values())
         min_time = (max_count - 1) * (n + 1) + \
                     sum(map(lambda count: count == max_count, counter.values()))
