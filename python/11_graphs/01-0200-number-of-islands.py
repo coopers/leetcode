@@ -1,3 +1,7 @@
+from typing import List
+from collections import deque
+
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]:
@@ -39,7 +43,7 @@ class SolutionBFS:
         visited=set()
         islands=0
 
-         def bfs(r,c):
+        def bfs(r,c):
              q = deque()
              visited.add((r,c))
              q.append((r,c))
@@ -55,12 +59,12 @@ class SolutionBFS:
                          q.append((r , c ))
                          visited.add((r, c ))
 
-         for r in range(rows):
-             for c in range(cols):
+        for r in range(rows):
+            for c in range(cols):
                
-                 if grid[r][c] == "1" and (r,c) not in visited:
-                     bfs(r,c)
-                     islands +=1 
+                if grid[r][c] == "1" and (r,c) not in visited:
+                    bfs(r,c)
+                    islands +=1 
 
-         return islands
+        return islands
 

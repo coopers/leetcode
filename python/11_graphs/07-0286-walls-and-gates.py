@@ -1,3 +1,7 @@
+from typing import List
+from collections import deque
+
+
 class Solution:
     """
     @param rooms: m x n 2D grid

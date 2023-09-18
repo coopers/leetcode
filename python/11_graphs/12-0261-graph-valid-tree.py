@@ -1,3 +1,6 @@
+from typing import List
+
+
 # Problem is free on Lintcode
 class Solution:
     """
