@@ -1,33 +1,31 @@
 from typing import List
 
 
+# Time: log(min(n, m))
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         A, B = nums1, nums2
-        total = len(nums1) + len(nums2)
-        half = total // 2
-
         if len(B) < len(A):
             A, B = B, A
 
+        total = len(A) + len(B)
+        half = total // 2
         l, r = 0, len(A) - 1
         while True:
-            i = (l + r) // 2  # A
-            j = half - i - 2  # B
-
-            Aleft = A[i] if i >= 0 else float("-infinity")
-            Aright = A[i + 1] if (i + 1) < len(A) else float("infinity")
-            Bleft = B[j] if j >= 0 else float("-infinity")
-            Bright = B[j + 1] if (j + 1) < len(B) else float("infinity")
-
+            a = l + (r - l) // 2
+            b = half - a - 2
+            a_L = A[a] if a >= 0 else float("-infinity")
+            b_L = B[b] if b >= 0 else float("-infinity")
+            a_R = A[a + 1] if (a + 1) < len(A) else float("infinity")
+            b_R = B[b + 1] if (b + 1) < len(B) else float("infinity")
             # partition is correct
-            if Aleft <= Bright and Bleft <= Aright:
+            if a_L <= b_R and b_L <= a_R:
                 # odd
                 if total % 2:
-                    return min(Aright, Bright)
+                    return min(a_R, b_R)
                 # even
-                return (max(Aleft, Bleft) + min(Aright, Bright)) / 2
-            elif Aleft > Bright:
-                r = i - 1
+                return (max(a_L, b_L) + min(a_R, b_R)) / 2
+            elif a_R < b_L:
+                l = a + 1
             else:
-                l = i + 1
+                r = a - 1
