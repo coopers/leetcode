@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         LIS = [1] * len(nums)
