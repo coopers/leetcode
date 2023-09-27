@@ -10,6 +10,7 @@ class Solution:
         for r, n in enumerate(nums):
             while q and n > nums[q[-1]]:
                 q.pop()
+            
             q.append(r)
 
             if q[0] < l:

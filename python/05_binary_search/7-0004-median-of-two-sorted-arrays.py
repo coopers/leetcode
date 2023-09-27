@@ -14,10 +14,10 @@ class Solution:
         while True:
             a = l + (r - l) // 2
             b = half - a - 2
-            a_L = A[a] if a >= 0 else float("-infinity")
-            b_L = B[b] if b >= 0 else float("-infinity")
-            a_R = A[a + 1] if (a + 1) < len(A) else float("infinity")
-            b_R = B[b + 1] if (b + 1) < len(B) else float("infinity")
+            a_L = A[a] if a >= 0 else float('-inf')
+            b_L = B[b] if b >= 0 else float('-inf')
+            a_R = A[a + 1] if (a + 1) < len(A) else float('inf')
+            b_R = B[b + 1] if (b + 1) < len(B) else float('inf')
             # partition is correct
             if a_L <= b_R and b_L <= a_R:
                 # odd
@@ -25,7 +25,7 @@ class Solution:
                     return min(a_R, b_R)
                 # even
                 return (max(a_L, b_L) + min(a_R, b_R)) / 2
-            elif a_R < b_L:
-                l = a + 1
-            else:
+            elif a_L > b_R:
                 r = a - 1
+            else:
+                l = a + 1

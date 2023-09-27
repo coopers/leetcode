@@ -9,16 +9,16 @@ class Node:
 class Solution:
     def copyRandomList(self, head: Node) -> Node:
         oldToCopy = {None: None}
+        node = head
+        while node:
+            oldToCopy[node] = Node(node.val)
+            node = node.next
+            
+        node = head
+        while node:
+            copy = oldToCopy[node]
+            copy.next = oldToCopy[node.next]
+            copy.random = oldToCopy[node.random]
+            node = node.next
 
-        cur = head
-        while cur:
-            copy = Node(cur.val)
-            oldToCopy[cur] = copy
-            cur = cur.next
-        cur = head
-        while cur:
-            copy = oldToCopy[cur]
-            copy.next = oldToCopy[cur.next]
-            copy.random = oldToCopy[cur.random]
-            cur = cur.next
         return oldToCopy[head]
