@@ -7,7 +7,7 @@ class ListNode:
 
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        dummy = n = ListNode()
+        dummy = node = ListNode()
 
         num = 0
         while l1 or l2 or num:
@@ -18,8 +18,8 @@ class Solution:
                 num += l2.val
                 l2 = l2.next
 
-            n.next = ListNode(num % 10)
-            n = n.next
+            node.next = ListNode(num % 10)
+            node = node.next
             num //= 10
 
         return dummy.next
