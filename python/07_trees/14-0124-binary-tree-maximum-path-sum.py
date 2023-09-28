@@ -1,3 +1,7 @@
+import math
+from typing import Optional
+
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -7,22 +11,18 @@ class TreeNode:
 
         
 class Solution:
-    def maxPathSum(self, root: TreeNode) -> int:
-        res = [root.val]
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = -math.inf
 
-        # return max path sum without split
         def dfs(root):
             if not root:
                 return 0
-
-            leftMax = dfs(root.left)
-            rightMax = dfs(root.right)
-            leftMax = max(leftMax, 0)
-            rightMax = max(rightMax, 0)
-
-            # compute max path sum WITH split
-            res[0] = max(res[0], root.val + leftMax + rightMax)
-            return root.val + max(leftMax, rightMax)
-
+                
+            nonlocal res
+            left = max(dfs(root.left), 0)
+            right = max(dfs(root.right), 0)
+            res = max(res, left + right + root.val)
+            return max(left, right) + root.val
+        
         dfs(root)
-        return res[0]
+        return res

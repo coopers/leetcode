@@ -26,7 +26,6 @@ class Solution:
 
         while stack:
             node, depth = stack.pop()
-
             if node:
                 res = max(res, depth)
                 stack.append([node.left, depth + 1])
@@ -37,15 +36,13 @@ class Solution:
 # BFS
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
+        level = 0
         q = deque()
         if root:
             q.append(root)
 
-        level = 0
-
         while q:
-
-            for i in range(len(q)):
+            for _ in range(len(q)):
                 node = q.popleft()
                 if node.left:
                     q.append(node.left)

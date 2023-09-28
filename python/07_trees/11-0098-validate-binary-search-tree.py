@@ -17,4 +17,4 @@ class Solution:
             return (isBetween(node.left, low, node.val) and \
                     isBetween(node.right, node.val, high))
 
-        return isBetween(root, float("-inf"), float("inf"))
+        return isBetween(root, float('-inf'), float('inf'))

@@ -13,6 +13,7 @@ class Solution:
             while node:
                 stack.append(node)
                 node = node.left
+                
             node = stack.pop()
             k -= 1
             if k == 0:
