@@ -3,34 +3,22 @@ from typing import List
 
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-        col = set()
-        posDiag = set()  # (r + c)
-        negDiag = set()  # (r - c)
-
+        col = [True] * n
+        pos = [True] * (2 * n - 1)
+        neg = [True] * (2 * n - 1)
+        board = [['.'] * n for _ in range(n)]
         res = []
-        board = [["."] * n for i in range(n)]
-
         def backtrack(r):
             if r == n:
-                copy = ["".join(row) for row in board]
-                res.append(copy)
-                return
-
-            for c in range(n):
-                if c in col or (r + c) in posDiag or (r - c) in negDiag:
-                    continue
-
-                col.add(c)
-                posDiag.add(r + c)
-                negDiag.add(r - c)
-                board[r][c] = "Q"
-
-                backtrack(r + 1)
-
-                col.remove(c)
-                posDiag.remove(r + c)
-                negDiag.remove(r - c)
-                board[r][c] = "."
+                res.append([''.join(row) for row in board])
+            else:
+                for c in range(n):
+                    if col[c] and pos[r + c] and neg[r - c]:
+                        board[r][c] = "Q"
+                        col[c] = pos[r + c] = neg[r - c] = False
+                        backtrack(r + 1)
+                        board[r][c] = '.'
+                        col[c] = pos[r + c] = neg[r - c] = True
 
         backtrack(0)
         return res
