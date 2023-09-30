@@ -13,3 +13,16 @@ class Solution:
 
         helper([], nums)
         return res
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 1:
+            return [nums[:]]
+
+        res = []
+        for _ in range(len(nums)):
+            n = nums.pop(0)
+            res.extend([perm + [n] for perm in self.permute(nums)])
+            nums.append(n)
+        return res
