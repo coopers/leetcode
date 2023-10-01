@@ -3,41 +3,22 @@ from collections import deque
 
 
 class Solution:
-    """
-    @param rooms: m x n 2D grid
-    @return: nothing
-    """
-
-    def walls_and_gates(self, rooms: List[List[int]]):
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        GATE, INF = 0, 2147483647
         ROWS, COLS = len(rooms), len(rooms[0])
-        visit = set()
-        q = deque()
-
-        def addRooms(r, c):
-            if (
-                min(r, c) < 0
-                or r == ROWS
-                or c == COLS
-                or (r, c) in visit
-                or rooms[r][c] == -1
-            ):
-                return
-            visit.add((r, c))
-            q.append([r, c])
-
-        for r in range(ROWS):
-            for c in range(COLS):
-                if rooms[r][c] == 0:
-                    q.append([r, c])
-                    visit.add((r, c))
-
-        dist = 0
+        DIRECTIONS = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        q = deque([(r, c) for r in range(ROWS) for c in range(COLS)
+                    if rooms[r][c] == GATE])
+        
         while q:
-            for i in range(len(q)):
+            for _ in range(len(q)):
                 r, c = q.popleft()
-                rooms[r][c] = dist
-                addRooms(r + 1, c)
-                addRooms(r - 1, c)
-                addRooms(r, c + 1)
-                addRooms(r, c - 1)
-            dist += 1
+                for dr, dc in DIRECTIONS:
+                    row, col = r + dr, c + dc
+                    if (
+                        0 <= row < ROWS and
+                        0 <= col < COLS and
+                        rooms[row][col] == INF
+                    ):
+                        rooms[row][col] = rooms[r][c] + 1
+                        q.append((row, col))

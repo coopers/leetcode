@@ -3,30 +3,24 @@ from typing import List
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # dfs
-        preMap = {i: [] for i in range(numCourses)}
+        courseToPrereqs = [[] for _ in range(numCourses)]
+        for course, prereq in prerequisites:
+            courseToPrereqs[course].append(prereq)
 
-        # map each course to : prereq list
-        for crs, pre in prerequisites:
-            preMap[crs].append(pre)
-
-        visiting = set()
-
-        def dfs(crs):
-            if crs in visiting:
+        taken = [False] * numCourses
+        def dfs(course):
+            if taken[course]:
                 return False
-            if preMap[crs] == []:
+            if not courseToPrereqs[course]:
                 return True
-
-            visiting.add(crs)
-            for pre in preMap[crs]:
-                if not dfs(pre):
+            
+            taken[course] = True
+            for prereq in courseToPrereqs[course]:
+                if not dfs(prereq):
                     return False
-            visiting.remove(crs)
-            preMap[crs] = []
+            
+            taken[course] = False
+            courseToPrereqs[course] = []
             return True
 
-        for c in range(numCourses):
-            if not dfs(c):
-                return False
-        return True
+        return all(dfs(course) for course in range(numCourses))
