@@ -49,7 +49,4 @@ class Solution:
                 dfs(j)
             return True
 
-        if not dfs(0):
-            return False
-        
-        return all(visit[i] for i in range(n))
+        return dfs(0) and all(visit[i] for i in range(1, n))
