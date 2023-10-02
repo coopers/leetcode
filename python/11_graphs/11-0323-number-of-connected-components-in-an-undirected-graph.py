@@ -1,7 +1,7 @@
 from typing import List
 
 
-# Union Find With Rank
+# Union-Find
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         parent = [i for i in range(n)]
