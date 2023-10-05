@@ -1,27 +1,22 @@
 import heapq
-from collections import defaultdict
 from typing import List
 
 
 class Solution:
-    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        edges = defaultdict(list)
-        for u, v, w in times:
-            edges[u].append((v, w))
+    def networkDelayTime(self, times: List[List[int]], n: int, start_node: int) -> int:
+        edges = [[] for _ in range(n + 1)]
+        for origin, destination, distance in times:
+            edges[origin].append((distance, destination))
 
-        minHeap = [(0, k)]
-        visit = set()
-        t = 0
-        while minHeap:
-            w1, n1 = heapq.heappop(minHeap)
-            if n1 in visit:
-                continue
-            visit.add(n1)
-            t = w1
-
-            for n2, w2 in edges[n1]:
-                if n2 not in visit:
-                    heapq.heappush(minHeap, (w1 + w2, n2))
-        return t if len(visit) == n else -1
-
-        # O(E * logV)
+        h = [(0, start_node)]
+        remaining = {i for i in range(1, n + 1)}
+        while h:
+            distance, node = heapq.heappop(h)
+            if node in remaining:
+                remaining.remove(node)
+                if not remaining:
+                    return distance
+                for d, n in edges[node]:
+                    if n in remaining:
+                        heapq.heappush(h, (distance + d, n))
+        return -1
