@@ -3,8 +3,8 @@ from collections import defaultdict
 
 class Solution:
     def findItinerary(self, tickets):
-        edges = defaultdict(list)
         tickets.sort(reverse = True)
+        edges = defaultdict(list)
         for src, des in tickets:
             edges[src].append(des),
         
