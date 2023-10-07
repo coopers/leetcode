@@ -3,19 +3,16 @@ from typing import List
 
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if sum(nums) % 2:
+        total = sum(nums)
+        if total % 2:
             return False
+        
+        target = total // 2
+        sums = {0}
+        for n in nums:
+            additions = {n + s for s in sums}
+            if target in additions:
+                return True
+            sums |= additions
 
-        dp = set()
-        dp.add(0)
-        target = sum(nums) // 2
-
-        for i in range(len(nums) - 1, -1, -1):
-            nextDP = set()
-            for t in dp:
-                if (t + nums[i]) == target:
-                    return True
-                nextDP.add(t + nums[i])
-                nextDP.add(t)
-            dp = nextDP
         return False
