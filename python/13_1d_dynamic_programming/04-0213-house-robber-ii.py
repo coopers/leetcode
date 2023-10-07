@@ -3,13 +3,14 @@ from typing import List
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        return max(nums[0], self.helper(nums[1:]), self.helper(nums[:-1]))
+        if len(nums) < 4:
+            return max(nums)
 
-    def helper(self, nums):
-        rob1, rob2 = 0, 0
+        def helper(nums):
+            a, b = 0, 0
+            for n in nums:
+                a, b = b, max(n + a, b)
+            
+            return b
 
-        for n in nums:
-            newRob = max(rob1 + n, rob2)
-            rob1 = rob2
-            rob2 = newRob
-        return rob2
+        return max(helper(nums[:-1]), helper(nums[1:]))

@@ -4,6 +4,7 @@ from typing import List
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])
+        DIRECTIONS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
         first = last = 0
         for r in range(ROWS):
@@ -21,25 +22,18 @@ class Solution:
                 return True
 
             if (
-                r < 0
-                or c < 0
-                or r >= ROWS
-                or c >= COLS
-                or word[i] != board[r][c]
-            ):
-                return False
-            
-            ch = board[r][c]
-            board[r][c] = ''
-            i += 1
-            if (
-                dfs(r + 1, c, i)
-                or dfs(r - 1, c, i)
-                or dfs(r, c + 1, i)
-                or dfs(r, c - 1, i)
-            ):
-                return True
+                0 <= r < ROWS and
+                0 <= c < COLS and
+                word[i] == board[r][c]
+            ):                
+                ch = board[r][c]
+                board[r][c] = ''
+                i += 1
+                for dr, dc in DIRECTIONS:
+                    row, col = r + dr, c + dc
+                    if dfs(row, col, i):
+                        return True
 
-            board[r][c] = ch
+                board[r][c] = ch
 
         return any(dfs(r, c, 0) for r in range(ROWS) for c in range(COLS))

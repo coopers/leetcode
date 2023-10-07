@@ -36,30 +36,26 @@ class Solution:
 
         def dfs(r, c, node, word):
             if (
-                r < 0
-                or r == ROWS
-                or c < 0 
-                or c == COLS
-                or board[r][c] not in node.children
-                or node.children[board[r][c]].refs == 0
-            ):
-                return
-            
-            ch = board[r][c]
-            word += ch
-            node = node.children[ch]
-            board[r][c] = ''
-            if node.isWord:
-                node.isWord = False
-                res.append(word)
-                root.removeWord(word)
+                0 <= r < ROWS and
+                0 <= c < COLS and
+                board[r][c] in node.children and
+                node.children[board[r][c]].refs
+            ):            
+                ch = board[r][c]
+                word += ch
+                node = node.children[ch]
+                board[r][c] = ''
+                if node.isWord:
+                    node.isWord = False
+                    res.append(word)
+                    root.removeWord(word)
 
-            dfs(r + 1, c, node, word)
-            dfs(r - 1, c, node, word)
-            dfs(r, c + 1, node, word)
-            dfs(r, c - 1, node, word)
+                dfs(r + 1, c, node, word)
+                dfs(r - 1, c, node, word)
+                dfs(r, c + 1, node, word)
+                dfs(r, c - 1, node, word)
 
-            board[r][c] = ch
+                board[r][c] = ch
 
         for r in range(ROWS):
             for c in range(COLS):

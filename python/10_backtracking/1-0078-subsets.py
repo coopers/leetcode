@@ -22,7 +22,7 @@ class Solution:
 
         def dfs(i):
             if i >= len(nums):
-                res.append(subset.copy())
+                res.append(subset[:])
             else:
                 subset.append(nums[i])
                 dfs(i + 1)

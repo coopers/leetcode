@@ -22,7 +22,7 @@ class Solution:
 
         def dfs(i, total):
             if total == target:
-                res.append(chosen.copy())
+                res.append(chosen[:])
             elif i < len(candidates) and total < target:
                 chosen.append(candidates[i])
                 dfs(i, total + candidates[i])
