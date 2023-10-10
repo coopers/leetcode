@@ -1,27 +1,25 @@
 from typing import List
 
 
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        # State: Buying or Selling?
-        # If Buy -> i + 1
-        # If Sell -> i + 2
+class Solution(object):
+    def maxProfit(self, prices):
+        L = len(prices)
+        MP = [0] * (L + 2)
 
-        dp = {}  # key=(i, buying) val=max_profit
+        for i in reversed(range(L)):
+            # Case 1). buy and sell the stock
+            C1 = 0
+            for sell in range(i + 1, L):
+                profit = (prices[sell] - prices[i]) + MP[sell + 2]
+                C1 = max(profit, C1)
 
-        def dfs(i, buying):
-            if i >= len(prices):
-                return 0
-            if (i, buying) in dp:
-                return dp[(i, buying)]
+            # Case 2). do no transaction with the stock p[i]
+            C2 = MP[i + 1]
 
-            cooldown = dfs(i + 1, buying)
-            if buying:
-                buy = dfs(i + 1, not buying) - prices[i]
-                dp[(i, buying)] = max(buy, cooldown)
-            else:
-                sell = dfs(i + 2, not buying) + prices[i]
-                dp[(i, buying)] = max(sell, cooldown)
-            return dp[(i, buying)]
+            # Choose best case
+            MP[i] = max(C1, C2)
 
-        return dfs(0, True)
+        return MP[0]
+    
+prices = [1,2,3,3,3]
+print(Solution().maxProfit(prices))

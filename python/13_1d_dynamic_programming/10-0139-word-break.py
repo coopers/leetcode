@@ -8,8 +8,7 @@ class Solution:
         for i in reversed(range(len(s))):
             for w in wordDict:
                 if (i + len(w)) <= len(s) and s[i:i + len(w)] == w:
-                    b = dp[i + len(w)]
-                    if b:
+                    if dp[i + len(w)]:
                         dp[i] = True
                         break
 

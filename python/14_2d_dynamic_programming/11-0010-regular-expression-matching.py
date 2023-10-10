@@ -1,21 +1,22 @@
 # BOTTOM-UP Dynamic Programming
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
-        cache = [[False] * (len(p) + 1) for i in range(len(s) + 1)]
-        cache[len(s)][len(p)] = True
+    def isMatch(self, s_str: str, p_str: str) -> bool:
+        S, P = len(s_str), len(p_str)
+        dp = [[False] * (P + 1) for _ in range(S + 1)]
+        dp[S][P] = True
 
-        for i in range(len(s), -1, -1):
-            for j in range(len(p) - 1, -1, -1):
-                match = i < len(s) and (s[i] == p[j] or p[j] == ".")
+        for s in reversed(range(S + 1)):
+            for p in reversed(range(P)):
+                match = s < S and p_str[p] in (s_str[s], '.')
 
-                if (j + 1) < len(p) and p[j + 1] == "*":
-                    cache[i][j] = cache[i][j + 2]
+                if (p + 1) < P and p_str[p + 1] == "*":
+                    dp[s][p] = dp[s][p + 2]
                     if match:
-                        cache[i][j] = cache[i + 1][j] or cache[i][j]
+                        dp[s][p] = dp[s + 1][p] or dp[s][p]
                 elif match:
-                    cache[i][j] = cache[i + 1][j + 1]
+                    dp[s][p] = dp[s + 1][p + 1]
 
-        return cache[0][0]
+        return dp[0][0]
 
 
 # TOP DOWN MEMOIZATION

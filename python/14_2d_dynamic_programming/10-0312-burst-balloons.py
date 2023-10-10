@@ -3,14 +3,14 @@ from typing import List
 
 class Solution:
     def maxCoins(self, nums: List[int]) -> int:
-        cache = {}
         nums = [1] + nums + [1]
+        N = len(nums)
+        dp = [[0] * N for _ in range(N)]
 
-        for offset in range(2, len(nums)):
-            for left in range(len(nums) - offset):
-                right = left + offset
-                for pivot in range(left + 1, right):
-                    coins = nums[left] * nums[pivot] * nums[right]
-                    coins += cache.get((left, pivot), 0) + cache.get((pivot, right), 0)
-                    cache[(left, right)] = max(coins, cache.get((left, right), 0))
-        return cache.get((0, len(nums) - 1), 0)
+        for L in range(N - 2, 0, -1):
+            for R in range(L, N - 1):
+                for i in range(L, R + 1):
+                    gain = nums[L - 1] * nums[i] * nums[R + 1]
+                    remaining = dp[L][i - 1] + dp[i + 1][R]
+                    dp[L][R] = max(remaining + gain, dp[L][R])
+        return dp[1][N - 2]
