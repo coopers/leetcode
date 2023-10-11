@@ -1,3 +1,24 @@
+# Greedy: O(n)
+class Solution:
+    def checkValidString(self, s):
+        left_min = left_max = 0
+        for c in s:
+            if c == '(':
+                left_min, left_max = left_min + 1, left_max + 1
+            elif c == ')':
+                left_min, left_max = left_min - 1, left_max - 1
+            else:
+                left_min, left_max = left_min - 1, left_max + 1
+            
+            if left_max < 0:
+                return False
+            
+            if left_min < 0:
+                left_min = 0
+            
+        return left_min == 0
+    
+
 # Dynamic Programming: O(n^2)
 class Solution:
     def checkValidString(self, s: str) -> bool:
@@ -20,22 +41,3 @@ class Solution:
             return dp[(i, left)]
 
         return dfs(0, 0)
-
-
-# Greedy: O(n)
-class Solution:
-    def checkValidString(self, s: str) -> bool:
-        leftMin, leftMax = 0, 0
-
-        for c in s:
-            if c == "(":
-                leftMin, leftMax = leftMin + 1, leftMax + 1
-            elif c == ")":
-                leftMin, leftMax = leftMin - 1, leftMax - 1
-            else:
-                leftMin, leftMax = leftMin - 1, leftMax + 1
-            if leftMax < 0:
-                return False
-            if leftMin < 0:  # required because -> s = ( * ) (
-                leftMin = 0
-        return leftMin == 0
