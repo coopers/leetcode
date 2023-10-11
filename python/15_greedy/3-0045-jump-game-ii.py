@@ -3,13 +3,13 @@ from typing import List
 
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        l, r = 0, 0
-        res = 0
-        while r < (len(nums) - 1):
-            maxJump = 0
-            for i in range(l, r + 1):
-                maxJump = max(maxJump, i + nums[i])
-            l = r + 1
-            r = maxJump
-            res += 1
+        res, n = 0, len(nums)
+        prev, curr = 0, 0
+        
+        for i in range(n - 1):
+            curr = max(curr, i + nums[i])
+            if i == prev:
+                res += 1
+                prev = curr
+                
         return res

@@ -2,23 +2,15 @@ from typing import List
 
 
 class Solution:
-    def partitionLabels(self, S: str) -> List[int]:
-        count = {}
+    def partitionLabels(self, s: str) -> List[int]:
+        rightmost = {c:i for i, c in enumerate(s)}
+        left, right = 0, 0
+
         res = []
-        i, length = 0, len(S)
-        for j in range(length):
-            c = S[j]
-            count[c] = j
+        for i, letter in enumerate(s):
+            right = max(right,rightmost[letter])
+            if i == right:
+                res.append(right - left + 1)
+                left = i + 1
 
-        curLen = 0
-        goal = 0
-        while i < length:
-            c = S[i]
-            goal = max(goal, count[c])
-            curLen += 1
-
-            if goal == i:
-                res.append(curLen)
-                curLen = 0
-            i += 1
         return res
