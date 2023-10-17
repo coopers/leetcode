@@ -1,17 +1,17 @@
 from typing import List
 
 
-def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        time = []
-        for start, end in intervals:
-            time.append((start, 1))
-            time.append((end, -1))
-        
-        time.sort(key=lambda x: (x[0], x[1]))
-        
-        count = 0
-        max_count = 0
-        for t in time:
-            count += t[1]
-            max_count = max(max_count, count)
-        return max_count
+START, END = 0, 1
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        start_times = sorted([i[START] for i in intervals])
+        end_times = sorted(i[END] for i in intervals)
+        rooms = 0
+        e = 0
+        for start_time in start_times:
+            if start_time >= end_times[e]:
+                e += 1
+            else:
+                rooms += 1
+
+        return rooms

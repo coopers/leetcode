@@ -1,20 +1,22 @@
 import heapq
-from typing import List
 
 
+START = SIZE = 0
+END = 1
 class Solution:
-    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
-        intervals.sort()
-        minHeap = []
+    def minInterval(self, intervals, queries):
+        intervals.sort(reverse=True)
+        h = []
         res = {}
-        i = 0
         for q in sorted(queries):
-            while i < len(intervals) and intervals[i][0] <= q:
-                l, r = intervals[i]
-                heapq.heappush(minHeap, (r - l + 1, r))
-                i += 1
+            while intervals and intervals[-1][START] <= q:
+                l, r = intervals.pop()
+                if r >= q:
+                    heapq.heappush(h, [r - l + 1, r])
 
-            while minHeap and minHeap[0][1] < q:
-                heapq.heappop(minHeap)
-            res[q] = minHeap[0][0] if minHeap else -1
+            while h and h[0][END] < q:
+                heapq.heappop(h)
+            
+            res[q] = h[0][SIZE] if h else -1
+
         return [res[q] for q in queries]
