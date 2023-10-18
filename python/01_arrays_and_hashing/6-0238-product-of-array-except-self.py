@@ -1,6 +1,10 @@
 from typing import List
 
 
+
+# Time   O(N)
+# Space  O(1)
+
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         res = []
@@ -10,7 +14,8 @@ class Solution:
             prefix *= n
 
         postfix = 1
-        for i in reversed(range(len(nums))):
+        for i in range(len(nums) - 1, -1, -1):
             res[i] *= postfix
             postfix *= nums[i]
+        
         return res

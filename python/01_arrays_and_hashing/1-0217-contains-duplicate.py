@@ -1,6 +1,9 @@
 from typing import List
 
 
+# Time   O(N)
+# Space  O(N)
+
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
         s = set()
