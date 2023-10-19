@@ -1,16 +1,26 @@
 from typing import List
 
 
+
+# Time   O(N)
+# Space  O(1)
+
 class Solution:
     def trap(self, height: List[int]) -> int:
-        volume = 0
-        highest = height.index(max(height))
-        for arr in [height[:highest], reversed(height[highest + 1:])]:
-            nextHighest = 0
-            for num in arr:
-                if num < nextHighest:
-                    volume += nextHighest - num
+        l, r = 0, len(height) - 1
+        lmax, rmax = 0, 0
+        res = 0
+        while l < r:
+            if height[l] < height[r]:
+                if height[l] > lmax:
+                    lmax = max(lmax, height[l])
                 else:
-                    nextHighest = num
-    
-        return volume
+                    res += lmax - height[l]
+                l += 1
+            else:
+                if height[r] > rmax:
+                    rmax = max(rmax, height[r])
+                else:
+                    res += rmax - height[r]
+                r -= 1
+        return res

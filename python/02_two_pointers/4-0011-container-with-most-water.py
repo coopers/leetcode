@@ -1,6 +1,10 @@
 from typing import List
 
 
+
+# Time   O(N)
+# Space  O(1)
+
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         area = 0

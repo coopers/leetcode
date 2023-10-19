@@ -1,14 +1,19 @@
 from typing import List
+import math
 
+
+
+# Time   O(N)
+# Space  O(1)
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:        
+    def maxProfit(self, prices: List[int]) -> int:
         profit = 0
-        lowest = prices[0]
-        for price in prices[1:]:
+        lowest = math.inf
+        for price in prices:
             if price < lowest:
                 lowest = price
-            elif price - lowest > profit:
-                profit = price - lowest
-
+            else:
+                profit = max(profit, price - lowest)
+        
         return profit
