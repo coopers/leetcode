@@ -1,16 +1,18 @@
+# Time   O(N)
+# Space  O(N)
+
 class Solution:
     def isValid(self, s: str) -> bool:
-        m = {
-                ')': '(',
-                '}': '{',
-                ']': '['
+        mapping = {
+            ')': '(',
+            '}': '{',
+            ']': '['
         }
         stack = []
-        for c in s:
-            if c in m:
-                if not stack or stack.pop() != m[c]:
+        for ch in s:
+            if ch in mapping:
+                if not stack or stack.pop() != mapping[ch]:
                     return False
             else:
-                stack.append(c)
-
-        return len(stack) == 0
+                stack.append(ch)
+        return not stack

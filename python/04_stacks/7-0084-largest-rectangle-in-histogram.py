@@ -1,6 +1,10 @@
 from typing import List
 
 
+
+# Time   O(N)
+# Space  O(N)
+
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         maxArea = 0
@@ -17,6 +21,4 @@ class Solution:
         for i, h in stack:
             maxArea = max(maxArea, h * (len(heights) - i))
         return maxArea
-
-heights = [2,1,5,6,2,3]
-print(Solution().largestRectangleArea(heights))
+                

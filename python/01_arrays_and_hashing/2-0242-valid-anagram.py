@@ -34,14 +34,14 @@ class Solution:
         if len(s) != len(t):
             return False
         
-        counter = [0] * 26
+        counts = [0] * 26
         for ch in s:
-            counter[ord(ch) - ord('a')] += 1
+            counts[ord(ch) - ord('a')] -= 1
 
         for ch in t:
             i = ord(ch) - ord('a')
-            counter[i] -= 1
-            if counter[i] < 0:
+            counts[i] += 1
+            if counts[i] > 1:
                 return False
         
-        return sum(counter) == 0
+        return all(count == 0 for count in counts)

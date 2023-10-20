@@ -1,3 +1,6 @@
+# Time   O(1)
+# Space  O(N)
+
 class MinStack:
     def __init__(self):
         self.stack = []
@@ -5,8 +8,8 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        if self.minStack and self.minStack[-1] < val:
-            val = self.minStack[-1]
+        if self.minStack:
+            val = min(val, self.minStack[-1])
         self.minStack.append(val)
 
     def pop(self) -> None:

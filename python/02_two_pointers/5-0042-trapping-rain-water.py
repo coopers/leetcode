@@ -13,13 +13,13 @@ class Solution:
         while l < r:
             if height[l] < height[r]:
                 if height[l] > lmax:
-                    lmax = max(lmax, height[l])
+                    lmax = height[l]
                 else:
                     res += lmax - height[l]
                 l += 1
             else:
                 if height[r] > rmax:
-                    rmax = max(rmax, height[r])
+                    rmax = height[r]
                 else:
                     res += rmax - height[r]
                 r -= 1

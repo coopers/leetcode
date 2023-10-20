@@ -1,6 +1,10 @@
 from typing import List
 
 
+
+# Time   O(4^N / SQRT(N))
+# Space  O(N)
+
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         stack = []
