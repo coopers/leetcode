@@ -8,7 +8,9 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# Time   O(N)
+# Space  O(N) if tree is a linked list
+#        O(logN) if the tree is balaned
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         res = 0

@@ -8,7 +8,8 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
+# Time   O(N)
+# Space  O(logN)
 # RECURSIVE DFS
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:

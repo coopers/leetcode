@@ -1,6 +1,8 @@
 from typing import Optional
 
 
+
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -9,6 +11,8 @@ class ListNode:
 
 
 # Iterative
+# Time   O(N + M) where N and M are the lengths of the linked lists.
+# Space  O(1)
 class Solution:
     def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
         dummy = node = ListNode()
@@ -28,6 +32,8 @@ class Solution:
 
 
 # Recursive
+# Time   O(N + M) where N and M are the lengths of the linked lists.
+# Space  O(N + M) where N and M are the lengths of the linked lists.
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         if not list1:

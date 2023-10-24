@@ -1,15 +1,14 @@
 from typing import List
 
 
+
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        l, r = 0, len(nums) - 1
-        while True:
-            if l == r:
-                return nums[l]
-            
-            m = l + (r - l) // 2
-            if nums[m] > nums[r]:
-                l = m + 1
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1
             else:
-                r = m
+                right = mid
+        return nums[left]

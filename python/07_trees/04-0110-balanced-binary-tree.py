@@ -8,15 +8,23 @@ class TreeNode:
         self.left = left
         self.right = right
 
-        
+
+# Time   O(N)
+# Space  O(N)
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        def dfs(root):
-            if not root:
-                return (True, 0)
-
-            left, right = dfs(root.left), dfs(root.right)
-            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-            return (balanced, 1 + max(left[1], right[1]))
-
-        return dfs(root)[0]
+        return self.helper(root)[0]
+    
+    def helper(self, root: Optional[TreeNode]) -> (bool, int):
+        if not root:
+            return (True, 0)
+        
+        lBal, lDepth = self.helper(root.left)
+        if not lBal:
+            return (False, 0)
+        
+        rBal, rDepth = self.helper(root.right)
+        if not rBal:
+            return (False, 0)
+        
+        return (abs(lDepth - rDepth) <= 1, 1 + max(lDepth, rDepth))

@@ -1,3 +1,7 @@
+from typing import Optional
+
+
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, x):
@@ -5,12 +9,15 @@ class ListNode:
         self.next = None
 
 
-class Solution:
-    def reverseList(self, node: ListNode) -> ListNode:
-        prev = None
-        while node:
-            nxt = node.next
-            node.next = prev
-            prev, node = node, nxt
+# Time   O(N) where N is length of linked list
+# Space  O(1)
 
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev, head = head, nxt
+            
         return prev

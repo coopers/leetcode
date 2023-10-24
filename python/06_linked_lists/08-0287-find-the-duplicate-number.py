@@ -1,24 +1,27 @@
 from typing import List
 
 
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-        
 
+
+# Time   O(N)
+# Space  O(1)
 class Solution:
-    def findDuplicate(self, nums: List[int]) -> int:
-        slow = fast = 0
+    def findDuplicate(self, nums):
+        slow = fast = nums[0]
         while True:
             slow = nums[slow]
             fast = nums[nums[fast]]
             if slow == fast:
                 break
-
-        slow2 = 0
-        while True:
+        
+        slow = nums[0]
+        while slow != fast:
             slow = nums[slow]
-            slow2 = nums[slow2]
-            if slow == slow2:
-                return slow
+            fast = nums[fast]
+        
+        return slow

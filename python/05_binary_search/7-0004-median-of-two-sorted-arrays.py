@@ -1,10 +1,10 @@
 from typing import List
+import math
 
 
 # Time: log(min(n, m))
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        A, B = nums1, nums2
+    def findMedianSortedArrays(self, A: List[int], B: List[int]) -> float:
         if len(B) < len(A):
             A, B = B, A
 
@@ -14,18 +14,18 @@ class Solution:
         while True:
             a = l + (r - l) // 2
             b = half - a - 2
-            a_L = A[a] if a >= 0 else float('-inf')
-            b_L = B[b] if b >= 0 else float('-inf')
-            a_R = A[a + 1] if (a + 1) < len(A) else float('inf')
-            b_R = B[b + 1] if (b + 1) < len(B) else float('inf')
+            aL = A[a] if a >= 0 else -math.inf
+            bL = B[b] if b >= 0 else -math.inf
+            aR = A[a + 1] if (a + 1) < len(A) else math.inf
+            bR = B[b + 1] if (b + 1) < len(B) else math.inf
             # partition is correct
-            if a_L <= b_R and b_L <= a_R:
+            if aL <= bR and bL <= aR:
                 # odd
                 if total % 2:
-                    return min(a_R, b_R)
+                    return min(aR, bR)
                 # even
-                return (max(a_L, b_L) + min(a_R, b_R)) / 2
-            elif a_L > b_R:
+                return (max(aL, bL) + min(aR, bR)) / 2
+            elif aL > bR:
                 r = a - 1
-            else:
+            else: # aR < bL
                 l = a + 1

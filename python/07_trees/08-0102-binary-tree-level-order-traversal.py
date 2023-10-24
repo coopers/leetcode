@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from collections import deque
 
 # Definition for a binary tree node.
@@ -9,22 +9,23 @@ class TreeNode:
         self.right = None
 
 
+# Time   O(N)
+# Space  O(N)
 class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
-        q = deque()
-        if root:
-            q.append(root)
+        if not root:
+            return res
 
+        q = deque([root])
         while q:
-            values = []
-
+            level = []
             for _ in range(len(q)):
-                node = q.popleft()
-                values.append(node.val)
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-            res.append(values)
+                n = q.popleft()
+                level.append(n.val)
+                if n.left:
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+            res.append(level)
         return res

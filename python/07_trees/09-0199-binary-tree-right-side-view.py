@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from collections import deque
 
 
@@ -10,21 +10,21 @@ class TreeNode:
         self.right = right
 
 
+# Time   O(N)
+# Space  O(D) where D is the diameter of the tree.
 class Solution:
-    def rightSideView(self, root: TreeNode) -> List[int]:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         res = []
+        if not root:
+            return res
+        
         q = deque([root])
-
         while q:
-            rightSide = None
-            qLen = len(q)
-
-            for _ in range(qLen):
-                node = q.popleft()
-                if node:
-                    rightSide = node
-                    q.append(node.left)
-                    q.append(node.right)
-            if rightSide:
-                res.append(rightSide.val)
+            res.append(q[0].val)
+            for _ in range(len(q)):
+                n = q.popleft()
+                if n.right:
+                    q.append(n.right)
+                if n.left:
+                    q.append(n.left)
         return res

@@ -7,7 +7,8 @@ class ListNode:
         self.val = val
         self.next = next
 
-
+# Time   O(N log K) where K is the number of linked lists
+# Space  O(1)
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         if not lists:

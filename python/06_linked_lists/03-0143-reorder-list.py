@@ -1,3 +1,10 @@
+from typing import Optional
+
+
+
+# Time   O(N) where N is length of linked list
+# Space  O(1)
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -5,25 +12,27 @@ class ListNode:
         
 
 class Solution:
-    def reorderList(self, head: ListNode) -> None:
-        # find middle
+    def reorderList(self, head: Optional[ListNode]) -> None:
         slow = fast = head
-        while fast and fast.next:
+        while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
+        second = slow.next
+        slow.next = None
+        second = self.reverseList(second)
 
-        # reverse second half
-        node = slow.next
-        prev = slow.next = None
-        while node:
-            nxt = node.next
-            node.next = prev
-            prev, node = node, nxt
+        dummy = head
+        while head:
+            nxt = head.next 
+            head.next = second
+            head = head.next
+            second = nxt
+        return dummy
 
-        # merge two halfs
-        a, b = head, prev
-        while b:
-            aNext, bNext = a.next, b.next
-            a.next = b
-            b.next = aNext
-            a, b = aNext, bNext
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev, head = head, nxt
+        return prev

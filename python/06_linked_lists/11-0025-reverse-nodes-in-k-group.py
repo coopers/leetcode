@@ -5,6 +5,8 @@ class ListNode:
         self.next = next
 
 
+# Time   O(N)
+# Space  O(1)
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         dummy = groupPrev = ListNode(0, head)
@@ -13,10 +15,9 @@ class Solution:
             kth = self.getKth(groupPrev, k)
             if not kth:
                 break
+
             groupPrev.next = kth
             groupNext = kth.next
-
-            # reverse group
             prev, node = groupNext, head
             while node != groupNext:
                 nxt = node.next

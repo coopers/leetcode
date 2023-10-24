@@ -9,6 +9,8 @@ class TreeNode:
         self.right = right
 
 
+# Time   O(N)
+# Space  O(N)
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:

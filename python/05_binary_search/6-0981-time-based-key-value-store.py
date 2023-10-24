@@ -2,26 +2,19 @@ from collections import defaultdict
 
 class TimeMap:
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
         self.keyStore = defaultdict(list)  # key : list of [val, timestamp]
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         self.keyStore[key].append([value, timestamp])
 
     def get(self, key: str, timestamp: int) -> str:
-        res, values = "", self.keyStore.get(key, [])
+        res, values = '', self.keyStore.get(key, [])
         l, r = 0, len(values) - 1
-        while True:
-            if l > r:
-                return res
-            
-            m = (l + r) // 2
-            if values[m][1] < timestamp:
+        while l <= r:
+            m = l + (r - l) // 2
+            if values[m][1] <= timestamp:
                 res = values[m][0]
                 l = m + 1
-            elif values[m][1] > timestamp:
-                r = m - 1
             else:
-                return values[m][0]
+                r = m - 1
+        return res
