@@ -1,6 +1,27 @@
 from typing import List
 
 
+
+class Solution:
+    def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        res = []
+        def helper(chosen, remaining, diff):
+            if not diff:
+                res.append(chosen)
+            elif remaining:
+                if remaining[0] > diff:
+                    return
+                helper(chosen + [remaining[0]], remaining[1:], diff - remaining[0])
+                i = 1
+                while i < len(remaining) and remaining[i] == remaining[i - 1]:
+                    i += 1
+                helper(chosen, remaining[i:], diff)
+
+        helper([], nums, target)
+        return res
+
+
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()

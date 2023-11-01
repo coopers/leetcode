@@ -2,6 +2,16 @@ import heapq
 from typing import List
 from collections import Counter, deque
 
+# Time   O(N), where N is the number of tasks
+# Space  O(1), since the tasks are lettes 'A'-'Z'
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        counter = Counter(tasks)
+        m = max(counter.values())
+        mCount = sum(map(lambda c: int(c == m), counter.values()))
+        minTime = (m - 1) * (n + 1) + mCount
+        return max(minTime, len(tasks))
+    
 
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:

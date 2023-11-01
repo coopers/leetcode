@@ -26,7 +26,6 @@ class Solution:
                 0 <= c < COLS and
                 word[i] == board[r][c]
             ):                
-                ch = board[r][c]
                 board[r][c] = ''
                 i += 1
                 for dr, dc in DIRECTIONS:
@@ -34,6 +33,6 @@ class Solution:
                     if dfs(row, col, i):
                         return True
 
-                board[r][c] = ch
+                board[r][c] = word[i-1]
 
         return any(dfs(r, c, 0) for r in range(ROWS) for c in range(COLS))

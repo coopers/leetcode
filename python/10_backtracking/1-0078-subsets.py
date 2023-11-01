@@ -1,6 +1,8 @@
 from typing import List
 
 
+# Time   O(N * 2^N)
+# Space  O(N)
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []

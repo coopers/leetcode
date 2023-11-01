@@ -8,6 +8,9 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
+# Time   O(N)
+# Space  O(N)
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         if inorder:

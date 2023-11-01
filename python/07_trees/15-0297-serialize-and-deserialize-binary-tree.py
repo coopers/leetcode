@@ -6,6 +6,8 @@ class TreeNode(object):
         self.right = None
 
 
+# Time   O(N) where N is the number of nodes in the tree.
+# Space  O(N)
 class Codec:
     def serialize(self, root):
         res = []
@@ -28,12 +30,12 @@ class Codec:
 
         def dfs():
             nonlocal i
-            if vals[i] == "N":
-                i += 1
+            val = vals[i]
+            i += 1
+            if val == "N":
                 return None
             
-            node = TreeNode(int(vals[i]))
-            i += 1
+            node = TreeNode(int(val))
             node.left = dfs()
             node.right = dfs()
             return node

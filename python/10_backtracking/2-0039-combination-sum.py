@@ -1,6 +1,14 @@
 from typing import List
 
 
+
+# N: number of candidates
+# T: target value
+# M: min value of candidates
+# Depth of the tree: T/M
+
+# Time:  O(N^(T/M + 1))
+# Space: O(T/M)
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
