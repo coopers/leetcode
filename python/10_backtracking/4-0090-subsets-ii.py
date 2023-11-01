@@ -1,6 +1,8 @@
 from typing import List
 
 
+# Time:  O(N ✖️ 2^N)
+# Space: O(log(N))
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums.sort()

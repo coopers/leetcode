@@ -2,6 +2,9 @@ from collections import defaultdict
 from typing import List
 
 
+# N: the length of the string
+# Time:  O(N ✖️ 2^N), worst case all possible substrings are palindromes
+# Space: O(N), space used to store the recursion stack, with max depth N.
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res = []
@@ -32,12 +35,19 @@ class Solution:
                 if s[:i] == s[:i][::-1]:
                     self.dfs(s[i:], palindromes + [s[:i]])
 
+
 class Solution:
     def __init__(self):
         self.res = []
         self.palindromeIndices = defaultdict(list)
 
     def indexAllPalindromes(self, s: str):
+        dp = [[False for _ in range(len(s))] for _ in range(len(s))]
+        for i in range(len(s)):
+            dp[i][i] = True
+            if i > 0 and s[i] == s[i - 1]:
+                dp[i - 1][i] = True
+        
         oneChars = {(i, i) for i in range(len(s))}
         twoChars = {(i - 1, i) for i in range(1, len(s)) if s[i - 1] == s[i]}
         current = oneChars | twoChars

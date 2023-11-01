@@ -1,9 +1,13 @@
 from typing import List
 
-
+# N: length of digits
+# Time:  O(N ✖️ 4^N)
+# Space: O(N), depth of the recursion call stack
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        res = []
+        if not digits:
+            return []
+
         digitToChar = {
             '2': 'abc',
             '3': 'def',
@@ -15,16 +19,16 @@ class Solution:
             '9': 'wxyz',
         }
 
-        def backtrack(i, chosen):
+        def backtrack(chosen, i):
             if i == len(digits):
                 res.append(''.join(chosen))
             else:
                 for c in digitToChar[digits[i]]:
                     chosen.append(c)
-                    backtrack(i + 1, chosen)
+                    backtrack(chosen, i + 1)
                     chosen.pop()
 
-        if digits:
-            backtrack(0, [])
+        res = []
+        backtrack([], 0)
 
         return res

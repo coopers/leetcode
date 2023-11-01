@@ -1,6 +1,10 @@
 from typing import List
 
 
+# N: number of cells in the board
+# L: length of the word
+# Time:  O(N ✖️ 3^L)
+# Space: O(L)
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])

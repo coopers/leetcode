@@ -2,6 +2,8 @@ from typing import List
 
 
 
+# Time:  O(2^N)
+# Space: O(N)
 class Solution:
     def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
         nums.sort()

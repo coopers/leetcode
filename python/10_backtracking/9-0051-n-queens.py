@@ -1,6 +1,8 @@
 from typing import List
 
 
+# Time:  O(N!)
+# Space: O(N^2)
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         col = [True] * n
