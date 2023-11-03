@@ -1,22 +1,28 @@
+from typing import Optional
+
+
 class Node:
     def __init__(self, val = 0, neighbors = []):
         self.val = val
         self.neighbors = neighbors
 
+
+# Time:  O(N + M), where N is the number of nodes and M is the number of edges
+# Space: O(N), the space of visited and the depth of the recursion stack
 class Solution:
-    def cloneGraph(self, node: Node) -> Node:
-        if node is None:
-            return None
-        
-        nodeToClone = {}
-        def dfs(node):
-            if node in nodeToClone:
-                return nodeToClone[node]
+    def __init__(self):
+        self.visited = {}
 
-            clone = Node(node.val)
-            nodeToClone[node] = clone
-            for neighbor in node.neighbors:
-                clone.neighbors.append(dfs(neighbor))
-            return clone
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return node
 
-        return dfs(node)
+        if node in self.visited:
+            return self.visited[node]
+
+        clone = Node(node.val)
+        self.visited[node] = clone
+        if node.neighbors:
+            clone.neighbors = [self.cloneGraph(n) for n in node.neighbors]
+
+        return clone

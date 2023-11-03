@@ -1,32 +1,33 @@
 from typing import List
 
 
+# Time:  O(RC)
+# Space: O(RC) the size of the call stack if every cell is greater than the last
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
         ROWS, COLS = len(heights), len(heights[0])
-        pac = [[False] * COLS for _ in range(ROWS)]
-        atl = [[False] * COLS for _ in range(ROWS)]
+        pacific, atlantic = set(), set()
 
-        def dfs(r, c, visit, prevHeight):
+        def dfs(r, c, s, h):
             if (
                 0 <= r < ROWS and
                 0 <= c < COLS and
-                not visit[r][c] and
-                heights[r][c] >= prevHeight
+                (r, c) not in s and
+                heights[r][c] >= h
             ):
-                visit[r][c] = True
-                dfs(r + 1, c, visit, heights[r][c])
-                dfs(r - 1, c, visit, heights[r][c])
-                dfs(r, c + 1, visit, heights[r][c])
-                dfs(r, c - 1, visit, heights[r][c])
+                s.add((r, c))
+                dfs(r + 1, c, s, heights[r][c])
+                dfs(r - 1, c, s, heights[r][c])
+                dfs(r, c + 1, s, heights[r][c])
+                dfs(r, c - 1, s, heights[r][c])
 
         for r in range(ROWS):
-            dfs(r, 0, pac, heights[r][0])
-            dfs(r, COLS - 1, atl, heights[r][COLS - 1])
+            for c, s in [(0, pacific), (COLS - 1, atlantic)]:
+                dfs(r, c, s, heights[r][c])
 
-        for c in range(COLS):
-            dfs(0, c, pac, heights[0][c])
-            dfs(ROWS - 1, c, atl, heights[ROWS - 1][c])
+        for r, s in [(0, pacific), (ROWS - 1, atlantic)]:
+            for c in range(COLS):
+                dfs(r, c, s, heights[r][c])
 
-        return [(r, c) for r in range(ROWS) for c in range(COLS) 
-                if pac[r][c] and atl[r][c]]
+        return [(r, c) for r in range(ROWS) for c in range(COLS)
+                if (r, c) in pacific and (r, c) in atlantic]

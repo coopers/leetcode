@@ -4,32 +4,27 @@ from collections import deque
 
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        FRESH, ROTTEN = 1, 2
         ROWS, COLS = len(grid), len(grid[0])
-        rotten = deque()
-        numFresh = 0
-        minutes = 0
-        for r in range(ROWS):
-            for c in range(COLS):
-                if grid[r][c] == FRESH:
-                    numFresh += 1
-                elif grid[r][c] == ROTTEN:
-                    rotten.append((r, c))
-
-        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
-        while numFresh > 0 and rotten:
-            minutes += 1
+        DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        FRESH, ROTTEN = 1, 2
+        rotten = deque([(r, c) for r in range(ROWS) for c in range(COLS)
+                    if grid[r][c] == ROTTEN])
+        fresh = sum(1 for r in range(ROWS) for c in range(COLS)
+                if grid[r][c] == FRESH)
+        time = 0
+        while rotten and fresh:
+            time += 1
             for _ in range(len(rotten)):
-                r, c = rotten.popleft()
-                for dr, dc in directions:
-                    row, col = r + dr, c + dc
+                row, col = rotten.popleft()
+                for dr, dc in DIRECTIONS:
+                    r, c = row + dr, col + dc
                     if (
-                        0 <= row < ROWS and 
-                        0 <= col < COLS and 
-                        grid[row][col] == FRESH
+                        0 <= r < ROWS and
+                        0 <= c < COLS and
+                        grid[r][c] == FRESH
                     ):
-                        numFresh -= 1
-                        grid[row][col] = ROTTEN
-                        rotten.append((row, col))
-        
-        return -1 if numFresh else minutes
+                        fresh -= 1
+                        grid[r][c] = ROTTEN
+                        rotten.append((r, c))
+
+        return -1 if fresh else time
