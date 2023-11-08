@@ -2,13 +2,15 @@ from typing import List
 from collections import deque
 
 
+# Time:  O(RC)
+# Space: O(RC)
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         FRESH, ROTTEN = 1, 2
-        rotten = deque([(r, c) for r in range(ROWS) for c in range(COLS)
-                    if grid[r][c] == ROTTEN])
+        rotten = deque((r, c) for r in range(ROWS) for c in range(COLS)
+                    if grid[r][c] == ROTTEN)
         fresh = sum(1 for r in range(ROWS) for c in range(COLS)
                 if grid[r][c] == FRESH)
         time = 0

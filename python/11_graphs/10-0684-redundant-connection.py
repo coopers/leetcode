@@ -1,6 +1,39 @@
 from typing import List
 
 
+
+class DSU:
+    def __init__(self):
+        SIZE = 1001
+        self.parent = [i for i in range(SIZE)]
+        self.rank = [1] * SIZE
+
+    def find(self, n):
+        while n != self.parent[n]:
+            n, self.parent[n] = self.parent[n], self.parent[self.parent[n]]
+        return n
+
+    def union(self, a, b):
+        child, parent = self.find(a), self.find(b)
+        if child == parent:
+            return False
+        
+        if self.rank[parent] < self.rank[child]:
+            child, parent = parent, child
+        
+        self.parent[child] = parent
+        self.rank[parent] += self.rank[child]
+        return True
+
+class Solution(object):
+    def findRedundantConnection(self, edges):
+        dsu = DSU()
+        for a, b in edges:
+            if not dsu.union(a, b):
+                return [a, b]
+
+
+
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         parent = [i for i in range(len(edges) + 1)]

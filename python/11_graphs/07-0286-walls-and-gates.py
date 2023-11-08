@@ -2,23 +2,24 @@ from typing import List
 from collections import deque
 
 
+# Time:  O(RC)
+# Space: O(RC)
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
-        GATE, INF = 0, 2147483647
         ROWS, COLS = len(rooms), len(rooms[0])
-        DIRECTIONS = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-        q = deque([(r, c) for r in range(ROWS) for c in range(COLS)
-                    if rooms[r][c] == GATE])
-        
+        GATE, EMPTY = 0, 2147483647
+        DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        q = deque((r, c) for r in range(ROWS) for c in range(COLS)
+                    if rooms[r][c] == GATE)
         while q:
             for _ in range(len(q)):
-                r, c = q.popleft()
+                row, col = q.popleft()
                 for dr, dc in DIRECTIONS:
-                    row, col = r + dr, c + dc
+                    r, c = row + dr, col + dc
                     if (
-                        0 <= row < ROWS and
-                        0 <= col < COLS and
-                        rooms[row][col] == INF
+                        0 <= r < ROWS and
+                        0 <= c < COLS and
+                        rooms[r][c] == EMPTY
                     ):
-                        rooms[row][col] = rooms[r][c] + 1
-                        q.append((row, col))
+                        rooms[r][c] = rooms[row][col] + 1
+                        q.append((r, c))

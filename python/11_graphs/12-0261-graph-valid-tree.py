@@ -1,28 +1,61 @@
 from typing import List
 
 
+
+# DSU
+# Time:  O(N ✖️ ⍺(N))
+# Space: O(N)
+class DSU:
+    def __init__(self, n):
+        self.parents = [i for i in range(n)]
+        self.ranks = [1] * n
+
+    def find(self, n):
+        if n != self.parents[n]:
+            self.parents[n] = self.find(self.parents[n])
+        return self.parents[n]
+
+    def union(self, a, b):
+        a, b = self.find(a), self.find(b)
+        if a == b:
+            return False
+        
+        child, parent = (a, b) if self.ranks[a] < self.ranks[b] else (b, a)
+        self.parents[child] = parent
+        self.ranks[parent] += self.ranks[child]
+        return True
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) != n - 1:
+            return False
+
+        dsu = DSU(n)
+        return all(dsu.union(a, b) for a, b in edges)
+
+
 # Union-Find
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if len(edges) != n - 1:
             return False
         
-        parent = [i for i in range(n)]
-        rank = [1] * n
+        parents = [i for i in range(n)]
+        ranks = [1] * n
 
         def find(n):
-            while n != parent[n]:
-                n, parent[n] = parent[n], parent[parent[n]]
-            return n
+            if n != parents[n]:
+                parents[n] = find(parents[n])
+            return parents[n]
 
-        def union(n1, n2):
-            p1, p2 = find(n1), find(n2)
-            if p1 == p2:
+        def union(a, b):
+            a, b = find(a), find(b)
+            if a == b:
                 return False
 
-            child, p = (p1, p2) if rank[p1] < rank[p2] else (p2, p1)
-            parent[child] = p
-            rank[p] += rank[child]
+            child, parent = (a, b) if ranks[a] < ranks[b] else (b, a)
+            parents[child] = parent
+            ranks[parent] += ranks[child]
             return True
 
         return all(union(a, b) for a, b in edges)

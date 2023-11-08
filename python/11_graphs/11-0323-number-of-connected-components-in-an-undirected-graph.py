@@ -2,23 +2,25 @@ from typing import List
 
 
 # Union-Find
+# Time:  O(V + E ✖️ ⍺(V)) where V is the number of nodes
+# Space: O(V)
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        parent = [i for i in range(n)]
+        parents = [i for i in range(n)]
         rank = [1] * n
         count = n
         
-        def findParent(n):
-            while n != parent[n]:
-                n, parent[n] = parent[n], parent[parent[n]]
-            return n
+        def find(n):
+            if n != parents[n]:
+               parents[n] = find(parents[n])
+            return parents[n]
         
         for i, j in edges:
-            p1, p2 = findParent(i), findParent(j)
-            if p1 != p2:
-                child, p = (p1, p2) if rank[p1] < rank[p2] else (p2, p1)
-                parent[child] = p
-                rank[p] += rank[child]
+            a, b = find(i), find(j)
+            if a != b:
+                child, parent = (a, b) if rank[a] < rank[b] else (b, a)
+                parents[child] = parent
+                rank[parent] += rank[child]
                 count -= 1
 
         return count
@@ -42,4 +44,6 @@ class Solution:
                 dfs(j)
             return 1
 
-        return sum([dfs(i) for i in range(n)])
+        return sum(dfs(i) for i in range(n))
+
+
