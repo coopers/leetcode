@@ -7,8 +7,7 @@ class Solution(object):
         self.adjacent_words = defaultdict(list)
 
     def visitWordNode(self, queue, visited, others_visited):
-        queue_size = len(queue)
-        for _ in range(queue_size):
+        for _ in range(len(queue)):
             current_word = queue.popleft()
             for i in range(self.length):
                 intermediate_word = current_word[:i] + "*" + current_word[i+1:]
