@@ -49,3 +49,46 @@ class Solution(object):
             count += 1
 
         return 0
+    
+
+class Word(str):
+    def variations(self):
+        return {self[:i] + "*" + self[i+1:] for i in range(len(self))}
+
+class End(object):
+    def __init__(self, start):
+        self.current = {start}
+        self.values = set()
+
+    def size(self):
+        return len(self.current)
+    
+    def step(self, adjacent_words):
+        variations = {word for cur in self.current for word in Word(cur).variations()}
+        nxt = {word for variation in variations for word in adjacent_words[variation]}
+        self.values |= self.current
+        self.current = nxt - self.values
+
+class Solution(object):
+    def __init__(self):
+        self.adjacent_words = defaultdict(set)
+
+    def ladderLength(self, beginWord, endWord, wordList):
+        if endWord not in wordList:
+            return 0
+        
+        for word in wordList:
+            for variation in Word(word).variations():
+                self.adjacent_words[variation].add(word)
+
+        begin = End(beginWord)
+        end = End(endWord)
+        count = 0
+        while begin.size() and end.size():
+            count += 1
+            lil, big = (begin, end) if not begin.values or begin.size() < end.size() else (end, begin)
+            lil.step(self.adjacent_words)
+            if lil.values & big.current:
+                return count
+            
+        return 0
