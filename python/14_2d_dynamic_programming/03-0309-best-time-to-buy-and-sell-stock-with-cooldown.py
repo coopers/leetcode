@@ -1,4 +1,14 @@
 from typing import List
+import math
+
+
+class Solution(object):
+    def maxProfit(self, prices):
+        profit, cost, carry = 0, math.inf, 0
+        for price in prices:
+            profit, cost, carry = price - cost, min(cost, price - carry), max(profit, carry)
+
+        return max(profit, carry)
 
 
 class Solution(object):
@@ -21,5 +31,3 @@ class Solution(object):
 
         return MP[0]
     
-prices = [1,2,3,3,3]
-print(Solution().maxProfit(prices))

@@ -7,13 +7,14 @@ class Solution:
         N = len(grid)
         DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         remaining = [[True] * N for _ in range(N)]
-        minH = [[grid[0][0], 0, 0]]
-
+        minH = [(grid[0][0], 0, 0)]
+        res = 0
         while minH:
-            t, row, col = heapq.heappop(minH)
+            val, row, col = heapq.heappop(minH)
+            res = max(res, val)
             if remaining[row][col]:
                 if N - 1 == row == col:
-                    return t
+                    return res
                 remaining[row][col] = False
                 for dr, dc in DIRECTIONS:
                     r, c = row + dr, col + dc
@@ -22,4 +23,4 @@ class Solution:
                         0 <= c < N and
                         remaining[r][c]
                     ):
-                        heapq.heappush(minH, (max(t, grid[r][c]), r, c))
+                        heapq.heappush(minH, (grid[r][c], r, c))

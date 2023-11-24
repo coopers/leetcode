@@ -3,11 +3,11 @@ from typing import List
 
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        res = nums[0]
-        lil, big = 1, 1
-        for n in nums:
-            a, b = n * lil, n * big
-            lil, big = min(a, b, n), max(a, b, n)
+        res = lil = big = nums[0]
+        for c in nums[1:]:
+            l, b = lil * c, big * c
+            lil = min(l, b, c)
+            big = max(l, b, c)
             res = max(res, big)
 
         return res

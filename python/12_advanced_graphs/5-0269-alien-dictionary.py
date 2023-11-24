@@ -25,11 +25,8 @@ class Solution:
             remaining.remove(char)
             current.add(char)
             for nextChar in adj[char]:
-                if nextChar in current:
+                if nextChar in current or (nextChar in remaining and dfs(nextChar)):
                     return True
-                if nextChar in remaining:
-                    if dfs(nextChar):
-                        return True
                 
             current.remove(char)
             res.append(char)
