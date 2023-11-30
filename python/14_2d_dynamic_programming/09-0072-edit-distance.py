@@ -3,12 +3,14 @@ import math
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
+        
+        
         dp = [[math.inf] * (len(word2) + 1) for _ in range(len(word1) + 1)]
 
-        for j in range(len(word2) + 1):
-            dp[len(word1)][j] = len(word2) - j
         for i in range(len(word1) + 1):
             dp[i][len(word2)] = len(word1) - i
+        for j in range(len(word2) + 1):
+            dp[len(word1)][j] = len(word2) - j
 
         for i in reversed(range(len(word1))):
             for j in reversed(range(len(word2))):

@@ -1,16 +1,15 @@
 class Solution:
-    def numDistinct(self, s: str, t: str) -> int:
-        if len(s) < len(t):
+    def numDistinct(self, big_str: str, lil_str: str) -> int:
+        L, B = len(lil_str), len(big_str)
+        if L > B:
             return 0
-
-        lil, big = (s, t) if len(s) < len(t) else (t, s)
-        L, B = len(lil), len(big)
+        
         dp = [0] * L
         for b in reversed(range(B)):
             prev = 1
             for l in reversed(range(L)):
                 old_dpt = dp[l]
-                if  lil[l] == big[b]:
+                if  lil_str[l] == big_str[b]:
                     dp[l] += prev
 
                 prev = old_dpt

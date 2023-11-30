@@ -3,12 +3,12 @@ from typing import List
 
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        rightmost = {c:i for i, c in enumerate(s)}
+        rightmost = {ch:i for i, ch in enumerate(s)}
         left, right = 0, 0
 
         res = []
-        for i, letter in enumerate(s):
-            right = max(right,rightmost[letter])
+        for i, ch in enumerate(s):
+            right = max(right,rightmost[ch])
             if i == right:
                 res.append(right - left + 1)
                 left = i + 1

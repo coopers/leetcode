@@ -3,13 +3,8 @@ from typing import List
 
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        res, n = 0, len(nums)
-        prev, curr = 0, 0
-        
-        for i in range(n - 1):
-            curr = max(curr, i + nums[i])
-            if i == prev:
-                res += 1
-                prev = curr
-                
+        l = r = res = 0
+        while r < len(nums) - 1:
+            res += 1
+            l, r = r + 1, max(i + nums[i] for i in range(l, r + 1)) 
         return res

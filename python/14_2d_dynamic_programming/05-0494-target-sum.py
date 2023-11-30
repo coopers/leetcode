@@ -7,19 +7,19 @@ class Solution:
         if target > total or target < -total:
             return 0
         
-        dp = [0] * (2 * total + 1)
-        dp[total + nums[0]] += 1
-        dp[total - nums[0]] += 1
+        prev = [0] * (2 * total + 1)
+        prev[total + nums[0]] += 1
+        prev[total - nums[0]] += 1
         for n in nums[1:]:
             current = [0] * (2 * total + 1)
-            for i, t in enumerate(dp):
+            for i, t in enumerate(prev):
                 if t:
                     current[i + n] += t
                     current[i - n] += t
         
-            dp = current
+            prev = current
         
-        return dp[target + total]
+        return prev[target + total]
 
 
 class Solution:

@@ -21,27 +21,26 @@ class Solution:
 
 # TOP DOWN MEMOIZATION
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
+    def isMatch(self, s_str: str, p_str: str) -> bool:
+        S, P = len(s_str), len(p_str)
         cache = {}
 
-        def dfs(i, j):
-            if (i, j) in cache:
-                return cache[(i, j)]
-            if i >= len(s) and j >= len(p):
+        def dfs(s, p):
+            if (s, p) in cache:
+                return cache[(s, p)]
+            if s >= S and p >= P:
                 return True
-            if j >= len(p):
+            if p >= P:
                 return False
 
-            match = i < len(s) and (s[i] == p[j] or p[j] == ".")
-            if (j + 1) < len(p) and p[j + 1] == "*":
-                cache[(i, j)] = dfs(i, j + 2) or (  # dont use *
-                    match and dfs(i + 1, j)
-                )  # use *
-                return cache[(i, j)]
+            match = s < S and (s_str[s] == p_str[p] or p_str[p] == ".")
+            if (p + 1) < P and p_str[p + 1] == "*":
+                cache[(s, p)] = dfs(s, p + 2) or (match and dfs(s + 1, p))
+                return cache[(s, p)]
             if match:
-                cache[(i, j)] = dfs(i + 1, j + 1)
-                return cache[(i, j)]
-            cache[(i, j)] = False
+                cache[(s, p)] = dfs(s + 1, p + 1)
+                return cache[(s, p)]
+            cache[(s, p)] = False
             return False
 
         return dfs(0, 0)
