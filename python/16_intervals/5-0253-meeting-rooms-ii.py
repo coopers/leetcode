@@ -7,10 +7,10 @@ class Solution:
         start_times = sorted([i[START] for i in intervals])
         end_times = sorted(i[END] for i in intervals)
         rooms = 0
-        e = 0
+        i = 0
         for start_time in start_times:
-            if start_time >= end_times[e]:
-                e += 1
+            if start_time >= end_times[i]:
+                i += 1
             else:
                 rooms += 1
 
