@@ -1,5 +1,29 @@
 import math
 
+class Solution:
+    def reverse(self, x: int) -> int:
+        # Integer.MAX_VALUE = 2147483647 (end with 7)
+        # Integer.MIN_VALUE = -2147483648 (end with -8 )
+
+        PREMIN = -214748365
+        PREMAX = 214748364
+        res = 0
+        while x:
+            digit = int(math.fmod(x, 10))  # (python dumb) -1 %  10 = 9
+            x = int(x / 10)  # (python dumb) -1 // 10 = -1
+
+            if (
+                res < PREMIN or 
+                (res == PREMIN and digit < 2) or
+                res > PREMAX or
+                (res == PREMAX and digit > 7)
+            ):
+                return 0
+
+            res = (res * 10) + digit
+
+        return res
+    
 
 class Solution:
     def reverse(self, x: int) -> int:
