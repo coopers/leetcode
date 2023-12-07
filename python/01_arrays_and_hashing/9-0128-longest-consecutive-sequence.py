@@ -11,7 +11,7 @@ class Solution:
         longest = 0
         for lil in s:
             if lil - 1 not in s:
-                big = lil
+                big = lil + 1
                 while big in s:
                     big += 1
          

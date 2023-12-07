@@ -17,4 +17,5 @@ class Solution:
             else:
                 area = max(area, height[r] * width)
                 r -= 1
+                
         return area

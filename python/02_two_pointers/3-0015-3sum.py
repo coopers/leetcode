@@ -12,29 +12,29 @@ class Solution:
 
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        for i in range(len(nums)):
+        for i in range(len(nums)-2):
             if nums[i] > 0:
                 break
             if i == 0 or nums[i] != nums[i - 1]:
-                self.twoSumII(nums, i)
+                self.helper(nums, i)
         return self.res
 
-    def twoSumII(self, nums: List[int], i: int):
-        lo, hi = i + 1, len(nums) - 1
-        while lo < hi:
-            sum = nums[i] + nums[lo] + nums[hi]
+    def helper(self, nums: List[int], i: int):
+        l, r = i + 1, len(nums) - 1
+        while l < r:
+            sum = nums[i] + nums[l] + nums[r]
             if sum < 0:
-                lo += 1
+                l += 1
             elif sum > 0:
-                hi -= 1
+                r -= 1
             else:
-                self.res.append([nums[i], nums[lo], nums[hi]])
-                lo += 1
-                hi -= 1
-                while lo < hi and nums[lo] == nums[lo - 1]:
-                    lo += 1
-                while hi > lo and nums[hi] == nums[hi + 1]:
-                    hi -= 1
+                self.res.append([nums[i], nums[l], nums[r]])
+                l += 1
+                r -= 1
+                while l < r and nums[l] == nums[l - 1]:
+                    l += 1
+                while l < r and nums[r] == nums[r + 1]:
+                    r -= 1
 
 
 
@@ -55,13 +55,13 @@ class Solution:
                     r -= 1
                 else:
                     res.append([nums[l], nums[m], nums[r]])
-                    temp = nums[m]
-                    while m < r and nums[m] == temp:
+                    m += 1
+                    while m < r and nums[m] == nums[m-1]:
                         m += 1
-                    temp = nums[r]
-                    while r > m and nums[r] == temp:
+                    r -= 1
+                    while r > m and nums[r] == nums[r+1]:
                         r -= 1
-            temp = nums[l]
-            while l < len(nums) - 2 and nums[l] == temp:
+            l += 1
+            while l < len(nums) - 2 and nums[l] == nums[l-1]:
                 l += 1
         return res

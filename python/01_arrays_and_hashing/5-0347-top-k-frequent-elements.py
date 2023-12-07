@@ -21,13 +21,8 @@ class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         counter = Counter(nums)
         h = [(-count, num) for num, count in counter.items()]
-
         heapq.heapify(h)
-        res = []
-        for _ in range(k):
-            _, num = heapq.heappop(h)
-            res.append(num)
-        return res
+        return [heapq.heappop(h)[1] for _ in range(k)]
 
 
 class Solution:

@@ -38,10 +38,10 @@ class Solution:
                     l = m + 1
                 else:
                     r = m - 1
-            return res
+            return res + 1
         
         def getUpper(n):
-            res = -1
+            res = len(intervals)
             l, r = 0, len(intervals) - 1
             while l <= r:
                 m = l + (r - l) // 2
@@ -53,30 +53,12 @@ class Solution:
             return res
 
         a, b = getLower(newInterval[START]), getUpper(newInterval[END])
-        if a == -1 and b == -1:
-            return [
-                [
-                    min(newInterval[START], intervals[0][START]),
-                    max(newInterval[END], intervals[-1][END])
-                ]
-            ]
-        if a == -1:
-            return [
-                [
-                    min(newInterval[START], intervals[0][START]),
-                    max(newInterval[END], intervals[b-1][END])        
-                ]
-            ] + intervals[b:]
-        if b == -1:
-            return intervals[:a+1] + [
-                [
-                    min(newInterval[START], intervals[a+1][START]),
-                    max(newInterval[END], intervals[-1][END])
-                ]
-            ]
-        return intervals[:a+1] + [
-            [
-                min(newInterval[START], intervals[a+1][START]),
-                max(newInterval[END], intervals[b-1][END])
-            ]
-        ] + intervals[b:]
+        res = []
+        if a:
+            res.extend(intervals[:a])
+        newInterval[START] = min(newInterval[START], intervals[a][START])
+        newInterval[END] = max(newInterval[END], intervals[b-1][END])
+        res.append(newInterval)
+        if b != len(intervals):
+            res.extend(intervals[b:])
+        return res
