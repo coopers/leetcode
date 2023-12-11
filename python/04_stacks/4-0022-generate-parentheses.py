@@ -27,3 +27,5 @@ class Solution:
 
         backtrack(0, 0)
         return res
+
+print(Solution().generateParenthesis(3))

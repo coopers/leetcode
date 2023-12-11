@@ -3,7 +3,7 @@ from collections import defaultdict
 
 
 
-# Time   O(NK) where N is len(strs) and K is max len(s) for S in strs
+# Time   O(NK) where N is len(strs) and K is max len(s) for s in strs
 # We examine each string and each character in linear time.
 # Space  O(NK)
 

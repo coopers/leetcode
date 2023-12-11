@@ -3,16 +3,17 @@
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        mapping = {
+        brackets = {
             ')': '(',
             '}': '{',
             ']': '['
         }
         stack = []
         for ch in s:
-            if ch in mapping:
-                if not stack or stack.pop() != mapping[ch]:
+            if ch in brackets:
+                if not stack or brackets[ch] != stack.pop():
                     return False
             else:
                 stack.append(ch)
+        
         return not stack

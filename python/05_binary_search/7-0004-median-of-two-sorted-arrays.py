@@ -14,10 +14,10 @@ class Solution:
         while True:
             a = l + (r - l) // 2
             b = half - a - 2
-            aL = A[a] if a >= 0 else -math.inf
-            bL = B[b] if b >= 0 else -math.inf
-            aR = A[a + 1] if (a + 1) < len(A) else math.inf
-            bR = B[b + 1] if (b + 1) < len(B) else math.inf
+            aL = -math.inf if a < 0 else A[a]
+            bL = -math.inf if b < 0 else B[b]
+            aR = math.inf if (a + 1) == len(A) else A[a + 1]
+            bR = math.inf if (b + 1) == len(B) else B[b + 1]
             # partition is correct
             if aL <= bR and bL <= aR:
                 # odd
@@ -25,7 +25,7 @@ class Solution:
                     return min(aR, bR)
                 # even
                 return (max(aL, bL) + min(aR, bR)) / 2
-            elif aL > bR:
-                r = a - 1
-            else: # aR < bL
+            elif aR < bL:
                 l = a + 1
+            else:
+                r = a - 1

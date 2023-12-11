@@ -4,11 +4,12 @@ from typing import List
 
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        left, right = 1, max(piles)
-        while left < right:
-            mid = left + (right - left) // 2
-            if sum(map(lambda p: math.ceil(p/mid), piles)) > h:
-                left = mid + 1
+        l, r = 1, max(piles)
+        while l < r:
+            m = l + (r - l) // 2
+            if h < sum(math.ceil(p/m) for p in piles):
+                l = m + 1
             else:
-                right = mid
-        return left
+                r = m
+
+        return l
