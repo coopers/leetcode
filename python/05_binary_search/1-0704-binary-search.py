@@ -3,13 +3,15 @@ from typing import List
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left, right = 0, len(nums) - 1
-        while left <= right:
-            mid = left + (right - left) // 2
-            if nums[mid] < target:
-                left = mid + 1
-            elif nums[mid] > target:
-                right = mid - 1
+        l, r = 0, len(nums) - 1
+        while True:
+            if l > r:
+                return -1
+                
+            m = l + (r - l) // 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
             else:
-                return mid
-        return -1
+                return m

@@ -20,8 +20,7 @@ class Solution:
             groupNext = kth.next
             prev, node = groupNext, head
             while node != groupNext:
-                nxt = node.next
-                node.next = prev
+                nxt, node.next = node.next, prev
                 prev, node = node, nxt
 
             groupPrev, head = head, groupNext
@@ -32,5 +31,7 @@ class Solution:
         for _ in range(k):
             if node is None:
                 return None
+            
             node = node.next
+        
         return node

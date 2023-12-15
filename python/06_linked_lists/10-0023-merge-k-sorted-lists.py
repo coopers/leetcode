@@ -11,29 +11,25 @@ class ListNode:
 # Space  O(1)
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        if not lists:
-            return None
-
         while len(lists) > 1:
             mergedLists = []
             for i in range(0, len(lists), 2):
-                l1 = lists[i]
-                l2 = lists[i + 1] if (i + 1) < len(lists) else None
-                mergedLists.append(self.mergeList(l1, l2))
+                a = lists[i]
+                b = lists[i + 1] if (i + 1) < len(lists) else None
+                mergedLists.append(self.mergeList(a, b))
             lists = mergedLists
-        return lists[0]
+        return lists[0] if lists else None
 
-    def mergeList(self, l1, l2):
+    def mergeList(self, a, b):
         dummy = node = ListNode()
-
-        while l1 and l2:
-            if l1.val < l2.val:
-                node.next = l1
-                l1 = l1.next
+        while a and b:
+            if a.val < b.val:
+                node.next = a
+                a = a.next
             else:
-                node.next = l2
-                l2 = l2.next
+                node.next = b
+                b = b.next
             node = node.next
 
-        node.next = l1 or l2
+        node.next = a or b
         return dummy.next

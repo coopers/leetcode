@@ -21,6 +21,7 @@ class LRUCache:
     def get(self, key: int) -> int:
         if key not in self.dic:
             return -1
+        
         node = self.dic[key]
         self.remove(node)
         self.add(node)
@@ -60,22 +61,22 @@ import collections
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.dic = collections.OrderedDict()
+        self.od = collections.OrderedDict()
 
     def get(self, key: int) -> int:
-        if key not in self.dic:
+        if key not in self.od:
             return -1
         
-        self.dic.move_to_end(key)
-        return self.dic[key]
+        self.od.move_to_end(key)
+        return self.od[key]
         
     def put(self, key: int, value: int) -> None:
-        if key in self.dic:
-            self.dic.move_to_end(key)
+        if key in self.od:
+            self.od.move_to_end(key)
         
-        self.dic[key] = value
-        if len(self.dic) > self.capacity:
-            self.dic.popitem(False)
+        self.od[key] = value
+        if len(self.od) > self.capacity:
+            self.od.popitem(False)
 
         
 # Your LRUCache object will be instantiated and called as such:

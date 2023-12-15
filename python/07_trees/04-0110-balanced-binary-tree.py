@@ -13,18 +13,21 @@ class TreeNode:
 # Space  O(N)
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        return self.helper(root)[0]
-    
-    def helper(self, root: Optional[TreeNode]) -> (bool, int):
-        if not root:
-            return (True, 0)
-        
-        lBal, lDepth = self.helper(root.left)
-        if not lBal:
-            return (False, 0)
-        
-        rBal, rDepth = self.helper(root.right)
-        if not rBal:
-            return (False, 0)
-        
-        return (abs(lDepth - rDepth) <= 1, 1 + max(lDepth, rDepth))
+        def dfs(n):
+            if not n:
+                return (True, 0)
+            
+            balanced, left = dfs(n.left)
+            if not balanced:
+                return (False, 0)
+
+            balanced, right = dfs(n.right)
+            if not balanced:
+                return (False, 0)
+
+            if abs(left - right) > 1:
+                return (False, 0)
+            
+            return (True, max(left, right) + 1)
+
+        return dfs(root)[0]

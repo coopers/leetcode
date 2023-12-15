@@ -14,21 +14,21 @@ class Node:
 # Space  O(N)
 
 class Solution:
-    def copyRandomList(self, head: Node) -> Node:
-        oldToCopy = {None: None}
-        node = head
-        while node:
-            oldToCopy[node] = Node(node.val)
-            node = node.next
-            
-        node = head
-        while node:
-            copy = oldToCopy[node]
-            copy.next = oldToCopy[node.next]
-            copy.random = oldToCopy[node.random]
-            node = node.next
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        m = {None: None}
+        n = head
+        while n:
+            m[n] = Node(n.val)
+            n = n.next
+        
+        n = head
+        while n:
+            copy = m[n]
+            copy.next = m[n.next]
+            copy.random = m[n.random]
+            n = n.next
 
-        return oldToCopy[head]
+        return m[head]
 
 
 # Time   O(N) where N is length of linked list

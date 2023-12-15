@@ -25,7 +25,7 @@ class Solution:
                self.validate(node.right, node.val, hi)
 
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        return self.isBetween(root, -math.inf, math.inf)
+        return self.validate(root, -math.inf, math.inf)
     
         
 class Solution:
