@@ -25,6 +25,6 @@ class KthLargest:
     def add(self, val: int) -> int:
         if len(self.heap) < self.k:
             heapq.heappush(self.heap, val)
-        elif val > self.heap[0]:
+        elif self.heap[0] < val:
             heapq.heapreplace(self.heap, val)
         return self.heap[0]

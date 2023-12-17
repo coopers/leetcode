@@ -6,6 +6,17 @@ from typing import List
 # Space  O(N)
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        def distance(point):
+            x, y = point
+            return x * x + y * y
+
+        return heapq.nsmallest(k, points, distance)
+    
+
+# Time   O(N(log(N)))
+# Space  O(N)
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         return heapq.nsmallest(k, points, lambda p: p[0]**2 + p[1]**2)
 
 
