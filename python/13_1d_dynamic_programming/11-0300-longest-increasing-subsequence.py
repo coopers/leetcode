@@ -8,12 +8,8 @@ class Solution:
         sub = []
         for num in nums:
             i = bisect.bisect_left(sub, num)
-
-            # If num is greater than any element in sub
             if i == len(sub):
                 sub.append(num)
-            
-            # Otherwise, replace the first element in sub greater than or equal to num
             else:
                 sub[i] = num
         
