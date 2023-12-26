@@ -29,16 +29,16 @@ class Solution:
 class Solution:
     def dfs(self, course, courses, visit, stack):
         if stack[course]:
-            return True
-        if visit[course]:
             return False
+        if visit[course]:
+            return True
         visit[course] = True
         stack[course] = True
         for nextCourse in courses[course]:
-            if self.dfs(nextCourse, courses, visit, stack):
-                return True
+            if not self.dfs(nextCourse, courses, visit, stack):
+                return False
         stack[course] = False
-        return False
+        return True
 
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         courses = [[] for _ in range(numCourses)]
@@ -47,8 +47,26 @@ class Solution:
 
         visit = [False] * numCourses
         stack = [False] * numCourses
-        for i in range(numCourses):
-            if self.dfs(i, courses, visit, stack):
-                return False
-        return True
+        return all(self.dfs(i, courses, visit, stack) for i in range(numCourses))
 
+
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        courseToPreviousCourses = defaultdict(set)
+        courseToNextCourses = defaultdict(list)
+        for course, prereq in prerequisites:
+            courseToPreviousCourses[course].add(prereq)
+            courseToNextCourses[prereq].append(course)
+        
+        enrollable = [course for course in courseToNextCourses if course not in courseToPreviousCourses]
+        while enrollable:
+            course = enrollable.pop()
+            for nextCourse in courseToNextCourses[course]:
+                courseToPreviousCourses[nextCourse].remove(course)
+                if len(courseToPreviousCourses[nextCourse]) == 0:
+                    del courseToPreviousCourses[nextCourse]
+                    enrollable.append(nextCourse)
+        
+        return len(courseToPreviousCourses) == 0

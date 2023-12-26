@@ -7,10 +7,10 @@ class Solution:
             return max(nums)
 
         def helper(nums):
-            a, b = 0, 0
-            for n in nums:
-                a, b = b, max(n + a, b)
+            prev, curr = 0, 0
+            for nxt in nums:
+                prev, curr = curr, max(nxt + prev, curr)
             
-            return b
+            return curr
 
         return max(helper(nums[:-1]), helper(nums[1:]))

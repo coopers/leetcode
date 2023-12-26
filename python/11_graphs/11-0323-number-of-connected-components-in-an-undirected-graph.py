@@ -4,23 +4,34 @@ from typing import List
 # Union-Find
 # Time:  O(V + E ✖️ ⍺(V)) where V is the number of nodes
 # Space: O(V)
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [1] * n
+
+    def find(self, n):
+        while n != self.parent[n]:
+            n, self.parent[n] = self.parent[n], self.parent[self.parent[n]]
+        return n
+
+    def union(self, a, b):
+        child, parent = self.find(a), self.find(b)
+        if child == parent:
+            return False
+        
+        if self.rank[parent] < self.rank[child]:
+            child, parent = parent, child
+        
+        self.parent[child] = parent
+        self.rank[parent] += self.rank[child]
+        return True
+
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        parents = [i for i in range(n)]
-        rank = [1] * n
+        unionfind = UnionFind(n)
         count = n
-        
-        def find(n):
-            if n != parents[n]:
-               parents[n] = find(parents[n])
-            return parents[n]
-        
         for i, j in edges:
-            a, b = find(i), find(j)
-            if a != b:
-                child, parent = (a, b) if rank[a] < rank[b] else (b, a)
-                parents[child] = parent
-                rank[parent] += rank[child]
+            if unionfind.union(i, j):
                 count -= 1
 
         return count

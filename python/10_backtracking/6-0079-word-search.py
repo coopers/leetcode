@@ -8,7 +8,7 @@ from typing import List
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])
-        DIRECTIONS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        MOVES = ((1,0),(-1,0),(0,1),(0,-1))
 
         first = last = 0
         for r in range(ROWS):
@@ -21,22 +21,22 @@ class Solution:
         if last < first:
             word = word[::-1]
 
-        def dfs(r, c, i):
+        def helper(r, c, i):
             if i == len(word):
                 return True
 
             if (
                 0 <= r < ROWS and
                 0 <= c < COLS and
-                word[i] == board[r][c]
-            ):                
+                board[r][c] == word[i]
+            ):
                 board[r][c] = ''
                 i += 1
-                for dr, dc in DIRECTIONS:
+                for dr, dc in MOVES:
                     row, col = r + dr, c + dc
-                    if dfs(row, col, i):
+                    if helper(row, col, i):
                         return True
-
+                        
                 board[r][c] = word[i-1]
 
-        return any(dfs(r, c, 0) for r in range(ROWS) for c in range(COLS))
+        return any(helper(r, c, 0) for r in range(ROWS) for c in range(COLS))

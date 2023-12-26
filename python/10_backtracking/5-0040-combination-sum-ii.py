@@ -5,22 +5,20 @@ from typing import List
 # Time:  O(2^N)
 # Space: O(N)
 class Solution:
-    def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
-        nums.sort()
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
         res = []
         def helper(chosen, remaining, diff):
             if not diff:
                 res.append(chosen)
-            elif remaining:
-                if remaining[0] > diff:
-                    return
+            elif remaining and remaining[0] <= diff:
                 helper(chosen + [remaining[0]], remaining[1:], diff - remaining[0])
                 i = 1
-                while i < len(remaining) and remaining[i] == remaining[i - 1]:
+                while i < len(remaining) and remaining[i] == remaining[i-1]:
                     i += 1
                 helper(chosen, remaining[i:], diff)
 
-        helper([], nums, target)
+        helper([], candidates, target)
         return res
 
 

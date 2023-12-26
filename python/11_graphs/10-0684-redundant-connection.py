@@ -2,7 +2,7 @@ from typing import List
 
 
 
-class DSU:
+class UnionFind:
     def __init__(self):
         SIZE = 1001
         self.parent = [i for i in range(SIZE)]
@@ -25,11 +25,11 @@ class DSU:
         self.rank[parent] += self.rank[child]
         return True
 
-class Solution(object):
-    def findRedundantConnection(self, edges):
-        dsu = DSU()
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        unionfind = UnionFind()
         for a, b in edges:
-            if not dsu.union(a, b):
+            if not unionfind.union(a, b):
                 return [a, b]
 
 

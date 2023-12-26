@@ -1,16 +1,24 @@
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [False] * len(s) + [True]
-        words = set(wordDict)
-        for i in reversed(range(len(s))):
-            if :
-                dp[i] = True
-                break
+        n = len(s)
+        words = defaultdict(list)
+        for word in wordDict:
+            words[len(word)].append(word)
+
+        dp = [False] * n + [True]
+        for i in reversed(range(n)):
+            for l in words.keys():
+                a = i + l
+                if a <= n and dp[a] and any(word == s[i:a] for word in words[l]):
+                    dp[i] = True
+                    break
 
         return dp[0]
+
 
 class Solution(object):
     def wordBreak(self, S, wordDict):

@@ -7,6 +7,31 @@ from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
+        MOVES = ((1,0),(-1,0),(0,1),(0,-1))
+        count = 0
+        def dfs(r, c):
+            if (
+                0 <= r < ROWS and
+                0 <= c < COLS and
+                grid[r][c] == '1'
+            ):
+                grid[r][c] = '0'
+                for dr, dc in MOVES:
+                    row, col = r + dr, c + dc
+                    dfs(row, col)
+        
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == '1':
+                    count += 1
+                    dfs(r, c)
+
+        return count
+    
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        ROWS, COLS = len(grid), len(grid[0])
         def dfs(r, c):
             if (
                 0 <= r < ROWS and

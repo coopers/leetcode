@@ -12,14 +12,14 @@ from typing import List
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        def helper(chosen, remaining, total):
-            if total == target:
+        def helper(chosen, remaining, diff):
+            if not diff:
                 res.append(chosen)
-            elif remaining and total < target:
-                helper(chosen + [remaining[0]], remaining, total + remaining[0])
-                helper(chosen, remaining[1:], total)
+            elif remaining and diff > 0:
+                helper(chosen + [remaining[0]], remaining, diff - remaining[0])
+                helper(chosen, remaining[1:], diff)
 
-        helper([], candidates, 0)
+        helper([], candidates, target)
         return res
 
 
@@ -27,15 +27,14 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         chosen = []
-
-        def dfs(i, total):
-            if total == target:
+        def helper(i, diff):
+            if not diff:
                 res.append(chosen[:])
-            elif i < len(candidates) and total < target:
+            elif i < len(candidates) and diff > 0:
                 chosen.append(candidates[i])
-                dfs(i, total + candidates[i])
+                helper(i, diff - candidates[i])
                 chosen.pop()
-                dfs(i + 1, total)
-
-        dfs(0, 0)
+                helper(i+1, diff)
+        
+        helper(0, target)
         return res

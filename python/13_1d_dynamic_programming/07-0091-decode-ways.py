@@ -1,18 +1,17 @@
 # Dynamic Programming
 class Solution:
     def numDecodings(self, s: str) -> int:
-        v, w = 1, 1
+        prev, curr = 1, 1
         for i in reversed(range(len(s))):
-            n = 0 if s[i] == '0' else v
-
+            nxt = 0 if s[i] == '0' else curr
             if i + 1 < len(s) and (
-                s[i] == "1" or (s[i] == "2" and '0' <= s[i + 1] <= '6')
+                s[i] == '1' or (s[i] == '2' and '0' <= s[i + 1] <= '6')
             ):
-                n += w
+                nxt += prev
 
-            v, w = n, v
-    
-        return v
+            prev, curr = curr, nxt
+        
+        return curr
 
 # Memoization
 class Solution:

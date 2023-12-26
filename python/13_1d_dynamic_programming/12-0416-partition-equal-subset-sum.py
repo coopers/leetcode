@@ -10,9 +10,8 @@ class Solution:
         target = total // 2
         sums = {0}
         for n in nums:
-            additions = {n + s for s in sums}
-            if target in additions:
+            sums |= {n + s for s in sums}
+            if target in sums:
                 return True
-            sums |= additions
 
         return False

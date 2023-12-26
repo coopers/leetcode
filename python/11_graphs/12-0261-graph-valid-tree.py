@@ -2,10 +2,10 @@ from typing import List
 
 
 
-# DSU
+# UnionFind
 # Time:  O(N ✖️ ⍺(N))
 # Space: O(N)
-class DSU:
+class UnionFind:
     def __init__(self, n):
         self.parents = [i for i in range(n)]
         self.ranks = [1] * n
@@ -30,8 +30,8 @@ class Solution:
         if len(edges) != n - 1:
             return False
 
-        dsu = DSU(n)
-        return all(dsu.union(a, b) for a, b in edges)
+        unionfind = UnionFind(n)
+        return all(unionfind.union(a, b) for a, b in edges)
 
 
 # Union-Find
