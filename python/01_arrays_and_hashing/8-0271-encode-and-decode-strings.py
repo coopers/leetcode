@@ -7,24 +7,22 @@ from typing import List
 # Space  O(K)
 
 class Codec:
-    def encode(self, strs):
-        return ''.join(map(lambda s: f"{len(s)}#{s}", strs))
+    def encode(self, strs: List[str]) -> str:
+        return ''.join(f"{len(s)}#{s}" for s in strs)
 
-    def decode(self, s):
-        strs = []
-        i = 0
-        
-        while i < len(s):
-            j = i
-            while s[j] != '#':
-                j += 1
-            length = int(s[i:j])
-            i = j + 1
-            j = i + length
-            strs.append(s[i:j])
-            i = j
-            
-        return strs
+    def decode(self, s: str) -> List[str]:
+        res = []
+        l = r = 0
+        while l < len(s):
+            while s[r] != '#':
+                r += 1
+            strlen = int(s[l:r])
+            l = r + 1
+            r = l + strlen
+            res.append(s[l:r])
+            l = r
+
+        return res
 
 
 class Codec:

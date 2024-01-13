@@ -1,36 +1,50 @@
 class Solution:
-    def numDistinct(self, big_str: str, lil_str: str) -> int:
-        L, B = len(lil_str), len(big_str)
-        if L > B:
+    def numDistinct(self, s_str: str, t_str: str) -> int:
+        S, T = len(s_str), len(t_str)
+        if S < T:
             return 0
         
-        dp = [0] * L
-        for b in reversed(range(B)):
-            prev = 1
-            for l in reversed(range(L)):
-                old_dpt = dp[l]
-                if  lil_str[l] == big_str[b]:
-                    dp[l] += prev
+        prev = None
+        for s in range(S, -1, -1):
+            curr = [0] * (T+1)
+            for t in range(T, -1, -1):
+                if t == T:
+                    curr[t] = 1
+                elif s == S:
+                    curr[t] = 0
+                elif s_str[s] == t_str[t]:
+                    curr[t] = prev[t+1] + prev[t]
+                else:
+                    curr[t] = prev[t]
 
-                prev = old_dpt
-
-        return dp[0]
+            prev = curr
+        return prev[0]
 
 
 class Solution:
-    def numDistinct(self, s: str, t: str) -> int:
+    def numDistinct(self, s_str: str, t_str: str) -> int:
+        S, T = len(s_str), len(t_str)
+        if S < T:
+            return 0
+
         cache = {}
+        def helper(s, t):
+            if t == T:
+                return 1
+            
+            if s == S:
+                return 0
+            
+            if (s, t) in cache:
+                return cache[(s, t)]
 
-        for i in range(len(s) + 1):
-            cache[(i, len(t))] = 1
-        for j in range(len(t)):
-            cache[(len(s), j)] = 0
+            if s_str[s] == t_str[t]:
+                cache[(s, t)] = helper(s+1, t+1) + helper(s+1, t)
+            else:
+                cache[(s, t)] = helper(s+1, t)
 
-        for i in range(len(s) - 1, -1, -1):
-            for j in range(len(t) - 1, -1, -1):
-                if s[i] == t[j]:
-                    cache[(i, j)] = cache[(i + 1, j + 1)] + cache[(i + 1, j)]
-                else:
-                    cache[(i, j)] = cache[(i + 1, j)]
-        return cache[(0, 0)]
+            return cache[(s, t)]
+        
+        return helper(0, 0)
+
 

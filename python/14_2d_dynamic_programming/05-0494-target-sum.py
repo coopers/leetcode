@@ -1,6 +1,27 @@
+from collections import defaultdict
 from typing import List
 
 
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        total = sum(nums)
+        if total < abs(target):
+            return 0
+        
+        prev = defaultdict(int)
+        prev[total + nums[0]] += 1
+        prev[total - nums[0]] += 1
+        for n in nums[1:]:
+            curr = defaultdict(int)
+            for k, v in prev.items():
+                curr[k + n] += v
+                curr[k - n] += v
+                
+            prev = curr
+
+        return prev[target + total]
+    
+    
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         total = sum(nums)
@@ -46,3 +67,4 @@ class Solution:
 nums = [1, 1, 1, 1, 1]
 target = 3
 print(Solution().findTargetSumWays(nums, target))
+

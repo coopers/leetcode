@@ -9,12 +9,14 @@ class Solution:
         for b in range(B, -1, -1):
             curr = [False] * (L + 1)
             for l in range(L, -1, -1):
-                if (
+                curr[l] = (
                     (l == L and b == B) or
                     (l < L and curr[l + 1] and lil[l] == s3[l + b]) or
                     (b < B and prev[l] and big[b] == s3[l + b])
-                ):
-                    curr[l] = True
-                    
+                )
             prev = curr
         return prev[0]
+s1="aabcc"
+s2="dbbca"
+s3="aadbbcbcac"
+assert Solution().isInterleave(s1, s2, s3) == True
