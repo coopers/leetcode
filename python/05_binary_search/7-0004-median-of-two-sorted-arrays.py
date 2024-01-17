@@ -9,7 +9,7 @@ class Solution:
             A, B = B, A
 
         total = len(A) + len(B)
-        half = total // 2
+        half, isOdd = divmod(total, 2)
         l, r = 0, len(A) - 1
         while True:
             a = l + (r - l) // 2
@@ -18,14 +18,16 @@ class Solution:
             bL = -math.inf if b < 0 else B[b]
             aR = math.inf if (a + 1) == len(A) else A[a + 1]
             bR = math.inf if (b + 1) == len(B) else B[b + 1]
-            # partition is correct
             if aL <= bR and bL <= aR:
-                # odd
-                if total % 2:
+                if isOdd:
                     return min(aR, bR)
-                # even
-                return (max(aL, bL) + min(aR, bR)) / 2
+                else:
+                    return (min(aR, bR) + max(aL, bL)) / 2
             elif aR < bL:
                 l = a + 1
             else:
                 r = a - 1
+
+A = []
+B = [1]
+assert Solution().findMedianSortedArrays(A, B) == 1

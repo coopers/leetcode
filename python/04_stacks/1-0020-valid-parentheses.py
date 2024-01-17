@@ -3,17 +3,17 @@
 
 class Solution:
     def isValid(self, s: str) -> bool:
-        brackets = {
+        closingToOpening = {
             ')': '(',
             '}': '{',
             ']': '['
         }
         stack = []
-        for ch in s:
-            if ch in brackets:
-                if not stack or brackets[ch] != stack.pop():
+        for bracket in s:
+            if bracket in closingToOpening:
+                if not stack or closingToOpening[bracket] != stack.pop():
                     return False
             else:
-                stack.append(ch)
+                stack.append(bracket)
         
         return not stack

@@ -1,6 +1,19 @@
 from typing import List
 
 
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        pairs = [(p, s) for p, s in zip(position, speed)]
+        pairs.sort(reverse=True)
+        count = fleetTime = 0
+        for p, s in pairs:
+            time = (target - p) / s
+            if not count or time > fleetTime:
+                count += 1
+                fleetTime = time
+
+        return count
+
 
 class Solution:
     def carFleet(self, target, pos, speed):
@@ -15,13 +28,4 @@ class Solution:
 
 
 
-class Solution:
-    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        pairs = [(p, s) for p, s in zip(position, speed)]
-        pairs.sort(reverse=True)
-        stack = []
-        for p, s in pairs:
-            time = (target - p) / s
-            if not stack or stack[-1] < time:
-                stack.append(time)
-        return len(stack)
+

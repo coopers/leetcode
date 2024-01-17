@@ -10,10 +10,11 @@ class Solution:
                 return False
             
             m = l + (r - l) // 2
-            i, j = divmod(m, COLS)
-            if matrix[i][j] < target:
+            row, col = divmod(m, COLS)
+            n = matrix[row][col]
+            if n < target:
                 l = m + 1
-            elif matrix[i][j] > target:
+            elif n > target:
                 r = m - 1
             else:
                 return True

@@ -2,30 +2,30 @@
 # Space  O(1)
 
 class Solution:
-    def checkInclusion(self, s1: str, s2: str) -> bool:
-        LOWER_A = 97            
+    def checkInclusion(self, lil: str, big: str) -> bool:
+        if len(lil) > len(big):
+            return False
+
+        LOWER_A = 97
         counter = [0] * 26
-        def get_index(ch):
-            return ord(ch) - LOWER_A
+        for ch in lil:
+            counter[ord(ch) - LOWER_A] -= 1
+        for ch in big[:len(lil)]:
+            counter[ord(ch) - LOWER_A] += 1
+        matches = sum(n == 0 for n in counter)
 
-        for ch in s1:
-            counter[get_index(ch)] -= 1
-        for ch in s2[:len(s1)]:
-            counter[get_index(ch)] += 1
-        matches = sum(c == 0 for c in counter)
-
-        for i in range(len(s2) - len(s1)):
+        for i in range(len(big) - len(lil)):
             if matches == 26:
                 return True
             
-            index = get_index(s2[i + len(s1)])
+            index = ord(big[len(lil) + i]) - LOWER_A
             counter[index] += 1
             if counter[index] == 0:
                 matches += 1
             elif counter[index] == 1:
                 matches -= 1
-            
-            index = get_index(s2[i])
+
+            index = ord(big[i]) - LOWER_A
             counter[index] -= 1
             if counter[index] == 0:
                 matches += 1
@@ -33,6 +33,8 @@ class Solution:
                 matches -= 1
 
         return matches == 26
+
+
     
 
 class Solution:

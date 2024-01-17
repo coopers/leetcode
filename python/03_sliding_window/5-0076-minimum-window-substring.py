@@ -24,7 +24,7 @@ class Solution:
                 counter[s[r]] += 1
                 if counter[s[r]] == 0:
                     need -= 1
-                while need == 0:
+                while not need:
                     strLen = r - l + 1
                     if strLen < resLen:
                         resL, resR, resLen = l, r, strLen
