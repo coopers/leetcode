@@ -27,7 +27,3 @@ class Solution:
                 l = a + 1
             else:
                 r = a - 1
-
-A = []
-B = [1]
-assert Solution().findMedianSortedArrays(A, B) == 1
