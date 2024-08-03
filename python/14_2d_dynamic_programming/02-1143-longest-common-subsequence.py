@@ -6,10 +6,9 @@ class Solution:
         for b in range(B):
             curr = [0] * (L + 1)
             for l in range(L):
-                if lil[l] == big[b]:
-                    curr[l + 1] = 1 + prev[l]
-                else:
-                    curr[l + 1] = max(curr[l], prev[l + 1])
+                curr[l + 1] = (prev[l] + 1 if lil[l] == big[b]
+                               else max(curr[l], prev[l + 1]))
+                
             prev = curr
         
         return prev[-1]
