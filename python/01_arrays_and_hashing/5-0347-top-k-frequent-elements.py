@@ -14,7 +14,7 @@ class Solution:
         counter = Counter(nums)   
 
         # O(N log k) time
-        return heapq.nlargest(k, counter.keys(), key=counter.get)
+        return heapq.nlargest(k, counter, key=counter.get)
     
 
 class Solution:
