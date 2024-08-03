@@ -3,16 +3,16 @@ class Solution:
         lil, big = (s, t) if len(s) < len(t) else (t, s)
         L, B = len(lil), len(big)
         prev = [0] * (L + 1)
-        for b in reversed(range(B)):
+        for b in range(B):
             curr = [0] * (L + 1)
-            for l in reversed(range(L)):
+            for l in range(L):
                 if lil[l] == big[b]:
-                    curr[l] = 1 + prev[l + 1]
+                    curr[l + 1] = 1 + prev[l]
                 else:
-                    curr[l] = max(curr[l + 1], prev[l])
+                    curr[l + 1] = max(curr[l], prev[l + 1])
             prev = curr
         
-        return prev[0]
+        return prev[-1]
     
 text1 = "abcde"
 text2 = "ace"
