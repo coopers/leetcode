@@ -5,14 +5,14 @@
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        longest = 0
-        m = {}
+        res = 0
+        charToIndex = {}
         l = 0
         for r, ch in enumerate(s):
-            if ch in m:
-                l = max(l, m[ch])
-
-            longest = max(longest, r - l + 1)
-            m[ch] = r + 1
-
-        return longest
+            if ch in charToIndex:
+                l = max(l, charToIndex[ch] + 1)
+            
+            charToIndex[ch] = r
+            res = max(res, r - l + 1)
+        
+        return res

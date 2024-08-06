@@ -1,7 +1,6 @@
 from typing import List
 
 
-
 # Time   O(N)
 # Space  O(1)
 
@@ -14,7 +13,7 @@ class Solution:
             prefix *= n
 
         postfix = 1
-        for i in range(len(nums) - 1, -1, -1):
+        for i in reversed(range(len(nums))):
             res[i] *= postfix
             postfix *= nums[i]
         

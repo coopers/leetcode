@@ -1,7 +1,6 @@
 from typing import List
 
 
-
 # Time   O(N)
 # Space  O(N)
 
@@ -11,7 +10,7 @@ class Solution:
         stack = []
         for right, short in enumerate(heights):
             left = right
-            while stack and short < stack[-1][0]:
+            while stack and short <= stack[-1][0]:
                 tall, left = stack.pop()
                 largest = max(largest, tall * (right - left))
             
@@ -19,3 +18,6 @@ class Solution:
         
         remaining = max(h * (len(heights) - i) for h, i in stack)
         return max(largest, remaining)
+
+heights = [7,1,7,2,2,4]
+print(Solution().largestRectangleArea(heights))

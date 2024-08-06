@@ -1,16 +1,14 @@
 from typing import List
 
 
-
 # Time   O(N)
 # Space  O(N)
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        m = {}
+        complementToIndex = {}
         for i, n in enumerate(nums):
-            complement = target - n
-            if complement in m:
-                return [i, m[complement]]
+            if n in complementToIndex:
+                return [complementToIndex[n], i]
             
-            m[n] = i
+            complementToIndex[target - n] = i

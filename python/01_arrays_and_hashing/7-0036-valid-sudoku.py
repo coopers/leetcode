@@ -30,6 +30,28 @@ class Solution:
 
         return True
     
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        N = 9
+        def getBools():
+            return [[False for _ in range(N)] for _ in range(N)]
+        
+        row = getBools()
+        col = getBools()
+        box = getBools()
+        for r in range(N):
+            for c in range(N):
+                s = board[r][c]
+                if s != ".":
+                    i = int(s) - 1
+                    b = r // 3 * 3 + c // 3
+                    if row[r][i] or col[c][i] or box[b][i]:
+                        return False
+
+                    row[r][i] = col[c][i] = box[b][i] = True
+        
+        return True
+
 
 # Use N-sized binary digits to store data
 # N = Board length

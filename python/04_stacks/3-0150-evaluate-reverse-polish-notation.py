@@ -1,7 +1,6 @@
 from typing import List
 
 
-
 # Time   O(N)
 # Space  O(N)
 
@@ -19,6 +18,7 @@ class Solution:
             if t in operations:
                 b, a = stack.pop(), stack.pop()
                 t = operations[t](a, b)
+            
             stack.append(int(t))
             
         return stack.pop()

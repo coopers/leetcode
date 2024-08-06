@@ -3,6 +3,41 @@ from collections import Counter
 import heapq
 
 
+# O(N) time
+# O(N) space
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = Counter(nums)
+        frequencyToNums = [[] for _ in range(len(nums) + 1)]
+
+        for num, count in counter.items():
+            frequencyToNums[count].append(num)
+
+        res = []
+        for nums in reversed(frequencyToNums):
+            for num in nums:
+                res.append(num)
+                if len(res) == k:
+                    return res
+
+# We can use a dictionary instead of a nested list,
+# but it is not as efficient.
+#
+# We have to sort the keys in the dictionary. 
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = Counter(nums)
+        frequencyToNums = {}
+        for num, count in counter.items():
+            frequencyToNums.setdefault(count, []).append(num)
+
+        res = []
+        for count in sorted(frequencyToNums.keys(), reverse=True):
+            for num in frequencyToNums[count]:
+                res.append(num)
+                if len(res) == k:
+                    return res
+                
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]: 
@@ -15,40 +50,3 @@ class Solution:
 
         # O(N log k) time
         return heapq.nlargest(k, counter, key=counter.get)
-    
-
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = Counter(nums)
-        h = [(-count, num) for num, count in counter.items()]
-        heapq.heapify(h)
-        return [heapq.heappop(h)[1] for _ in range(k)]
-
-
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = Counter(nums)
-        h = [(-count, num) for num, count in counter.items()]
-
-        heapq.heapify(h)
-        res = []
-        for _ in range(k):
-            _, num = heapq.heappop(h)
-            res.append(num)
-        return res
-    
-
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = Counter(nums)
-        freq = [[] for _ in range(len(nums) + 1)]
-
-        for num, count in counter.items():
-            freq[count].append(num)
-
-        res = []
-        for values in reversed(freq):
-            for value in values:
-                res.append(value)
-                if len(res) == k:
-                    return res

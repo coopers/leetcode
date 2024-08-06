@@ -2,7 +2,6 @@ from typing import List
 import math
 
 
-
 # Time   O(N)
 # Space  O(1)
 

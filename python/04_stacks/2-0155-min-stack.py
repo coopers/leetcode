@@ -10,6 +10,7 @@ class MinStack:
         self.stack.append(val)
         if self.minStack:
             val = min(val, self.minStack[-1])
+        
         self.minStack.append(val)
 
     def pop(self) -> None:
